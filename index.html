@@ -23,6 +23,19 @@
             <button id='mostRecentButton' onclick='handleMostRecent()' class="btn btn-primary">Open Most Recent</button>
         </div>
     </div>
+    <div id="toolDiv"style='display:none;' >
+        <button onclick='search()' class="btn btn-warning">Search...</button>
+    </div>
+
+    <div id="searchBlackout" style="display:none;">
+        <div id="searchPopup">
+            <h1>Search</h1>
+            <input id="searchInput" class="form-control" type="text" placeholder="Type your query here..."/>
+            <div id="searchResults">
+
+            </div>
+        </div>
+    </div>
 
     <!-- Insert this line above script imports -->
     <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>

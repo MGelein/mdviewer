@@ -59,9 +59,9 @@ function pwd() {
  * @param {String} url 
  */
 function loadFile(url) {
+    //If there is a double markdown extension, ignore it
+    url = url.replace(/\.md\.md/g, '.md')
     console.log("LOAD::" + url);
-    //Set the most recent file correctly
-    ini.set("mostRecent", url);
     //Start loading the root.json
     let folderJSON = JSON.parse(fs.readFileSync(pwd() + "root.json", "utf-8"));
     linkNames = JSON.parse(fs.readFileSync(pwd() + folderJSON[1], "utf-8"));
@@ -73,4 +73,9 @@ function loadFile(url) {
     $('#content').html(html);
     //Do some more parsing of the page contents
     parseFinal();
+    //Get rid of the search thingy
+    $('#searchBlackout').hide();
+    $('#toolDiv').show();
+    //Set the most recent file correctly
+    ini.set("mostRecent", url);
 }
