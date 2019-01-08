@@ -1,0 +1,20 @@
+{
+  "name": "mdviewer",
+  "version": "0.1.0",
+  "description": "Viewing Markdown files for my D&D campaigns",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "dnd",
+    "markdown",
+    "md",
+    "viewer"
+  ],
+  "author": "Mees Gelein",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^4.0.1"
+  }
+}
