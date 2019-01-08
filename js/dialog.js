@@ -1,6 +1,9 @@
 /**Require access to the file dialogs from the system*/
 const { dialog } = require('electron').remote;
 
+/**Holds all the possible names of the link stuff */
+var linkNames;
+
 /**The file type filter for the loading of files in this application */
 const filters = [
     { name: 'Markdown File', extensions: ['md'] }
@@ -59,7 +62,10 @@ function loadFile(url) {
     console.log("LOAD::" + url);
     //Set the most recent file correctly
     ini.set("mostRecent", url);
-    //Now actually load it
+    //Start loading the root.json
+    let folderJSON = JSON.parse(fs.readFileSync(pwd() + "root.json", "utf-8"));
+    linkNames = JSON.parse(fs.readFileSync(pwd() + folderJSON[1], "utf-8"));
+    //Now actually load the main file
     let contents = fs.readFileSync(url, "utf-8");
     //Then convert it to html using the marked plugin
     let html = marked(contents);

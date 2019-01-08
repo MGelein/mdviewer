@@ -12,33 +12,21 @@ $(document).ready(function(){
  * if no extension was found
  */
 function parseFinal() {
-    //Check all links for an extension, if none is present, add .md
-    $('a').each(function (index, link) {
-        //Get the href attribute of this link
-        let href = $(link).attr('href');
-        //Don't do anything if this is a folder ref
-        if(href.charAt(href.length - 1) == '/') return;
-        //See if it contains an extension (<10 letters long)
-        if (href.indexOf('.') > -1 && href.indexOf('.') > 1) {
-            if (href.substring(href.indexOf('.').length < 10)){//If the ext is shorter than 10 chars
-                console.log("skip: " + href);
-                return;//Ignore this link, it's probably fine
-            }
-        }else if(href == undefined || href.length == 0){//If no link is made explicitly, link to name
-            href = $(link).text().trim().toLowerCase();
-        }
-        //If we reach here, we modify the link
-        href += ".md";
-        //Update the link with the new href property
-        $(link).attr('href', href);
-    });
-
     //For all links, add a custom click handler
     $('a').unbind('click').click(function(event){
         //Prevent the standard event from firing
         event.preventDefault();
-        //Start loading that file using our own channel, add the current working directory
-        loadFile(pwd() + $(this).attr('href'));
+        //See if the HREF has been set
+        let href = $(this).attr('href').trim().toLowerCase();
+        //If left empty, it means the content of the tag is the name of the link
+        if(href.length == 0) href = $(this).text().trim().toLowerCase();
+        //Now find that entry in the list of entries
+        linkNames.forEach(linkName =>{
+            if(linkName.name === href){
+                //Start loading that file using our own channel, add the current working directory
+                loadFile(pwd() + linkName.location + linkName.name + ".md");
+            }
+        });
     });
 
     //Set image width in percent to the alt-text of the image
