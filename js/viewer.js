@@ -24,7 +24,7 @@ function parseFinal() {
         linkNames.forEach(linkName =>{
             if(linkName.name === href){
                 //Start loading that file using our own channel, add the current working directory
-                loadFile(pwd() + linkName.location + linkName.name + ".md");
+                loadFile(linkName.location + "/" + linkName.name + ".md");
             }
         });
     });
