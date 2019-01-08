@@ -13,7 +13,7 @@ const filters = [
  */
 function showOpenDialog(callback) {
     let mostRecent = ini.get("mostRecent");
-    if(!mostRecent) mostRecent = ".";
+    if (!mostRecent) mostRecent = ".";
     dialog.showOpenDialog({
         title: "Load a Markdown File",
         "filters": filters,
@@ -35,15 +35,28 @@ function handleLoadButton() {
 /**
  * Shortcut to load the most recently opened file
  */
-function handleMostRecent(){
+function handleMostRecent() {
     loadFile(ini.get('mostRecent'));
+}
+
+/**
+ * Returns the working directory
+ */
+function pwd() {
+    //Get the most recently opened file from memory
+    let mostRecent = ini.get("mostRecent");
+    //Replace weird slashes
+    mostRecent = mostRecent.replace(/\\/g, '/');
+    //Now remove the file from there
+    return mostRecent.substring(0, mostRecent.lastIndexOf("/") + 1);
 }
 
 /**
  * Loads the provided .md file
  * @param {String} url 
  */
-function loadFile(url){
+function loadFile(url) {
+    console.log("LOAD::" + url);
     //Set the most recent file correctly
     ini.set("mostRecent", url);
     //Now actually load it
@@ -51,7 +64,7 @@ function loadFile(url){
     //Then convert it to html using the marked plugin
     let html = marked(contents);
     //Finally set the content of the contents div to the marked markdown
-    $('content').html(html);
+    $('#content').html(html);
     //Do some more parsing of the page contents
     parseFinal();
 }

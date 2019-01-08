@@ -33,6 +33,14 @@ function parseFinal() {
         $(link).attr('href', href);
     });
 
+    //For all links, add a custom click handler
+    $('a').unbind('click').click(function(event){
+        //Prevent the standard event from firing
+        event.preventDefault();
+        //Start loading that file using our own channel, add the current working directory
+        loadFile(pwd() + $(this).attr('href'));
+    });
+
     //Set image width in percent to the alt-text of the image
     $('img').each(function(index, image){
         //Retrieve ATL attribute, if set, else ignore, just use default settings
