@@ -49,6 +49,8 @@ function parseFinal() {
         if(!isNaN(alt)) width = alt;
         width = "width:" + width + "%;";
         //Now set this as the style of the img
-        $(this).attr("style", width + float);
+        $(this).attr("style", width + float).addClass('img');
+        //Finally, normalize all urls to the current pwd
+        $(this).attr('src', pwd() + $(this).attr('src'));
     });
 }
