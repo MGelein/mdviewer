@@ -51,6 +51,7 @@ function loadFile(url){
     //Then convert it to html using the marked plugin
     let html = marked(contents);
     //Finally set the content of the contents div to the marked markdown
-    document.getElementById('content').innerHTML = html;
     $('content').html(html);
+    //Do some more parsing of the page contents
+    parseFinal();
 }

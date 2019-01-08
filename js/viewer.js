@@ -13,7 +13,7 @@ $(document).ready(function(){
  */
 function parseFinal() {
     //Check all links for an extension, if none is present, add .md
-    $('a').each(function (i, link) {
+    $('a').each(function (index, link) {
         //Get the href attribute of this link
         let href = $(link).attr('href');
         //Don't do anything if this is a folder ref
@@ -31,5 +31,28 @@ function parseFinal() {
         href += ".md";
         //Update the link with the new href property
         $(link).attr('href', href);
+    });
+
+    //Set image width in percent to the alt-text of the image
+    $('img').each(function(index, image){
+        //Retrieve ATL attribute, if set, else ignore, just use default settings
+        let alt = $(this).attr('alt');
+        if(!alt) return;
+        //Now check if there is a letter in there, afterwards, remove the letters
+        alt = alt.toLowerCase();
+        let float = "left";
+        //Set float according to letter found
+        if(alt.indexOf("l") != -1) float = "left";
+        else if(alt.indexOf("r") != -1) float = "right";
+        else if(alt.indexOf("c") != -1) float = "center";
+        float = "float:" + float + ";";
+        //Now remove that letter
+        let width = "50";
+        alt = alt.replace(/[c,l,r]/g, '');
+        //Check if the part is actually a number
+        if(!isNaN(alt)) width = alt;
+        width = "width:" + width + "%;";
+        //Now set this as the style of the img
+        $(this).attr("style", width + float);
     });
 }
