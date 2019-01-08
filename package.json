@@ -4,7 +4,7 @@
   "description": "Viewing Markdown files for my D&D campaigns",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron ."
   },
   "keywords": [
     "dnd",

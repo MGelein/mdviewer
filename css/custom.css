@@ -1,6 +1,11 @@
 /**
 HTML OVERRIDEs
 **/
+body{
+    background-image: url(../img/bg.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+}
 
 /**
 BOOTSTRAP OVERRIDES
@@ -13,3 +18,11 @@ CLASSES
 /**
 IDENTIFIERS
 **/
+#content{
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 1em;
+    margin-top: 1em;
+    width: 100%;
+    border-radius: 1em;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
