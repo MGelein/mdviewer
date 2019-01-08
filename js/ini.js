@@ -1,8 +1,16 @@
+/**Require access to the file dialogs from the system*/
+const fs = require('fs');
+
 /**Holds all ini methods */
 var ini = {};
 //Setup temporary init function, get's replaced with instance of ini class later
 ini.init = function(){
     ini = new Ini("config.ini");
+    //Also set the most recent button correct
+    let mostRecent = ini.get('mostRecent');
+    if(mostRecent){
+        document.getElementById('mostRecentButton').innerHTML = "Open Most Recent: " + mostRecent;
+    }
 }
 
 /**
@@ -15,7 +23,7 @@ function Ini(url){
     //The location this file was loaded from
     this.url = url;
     //First load the data and split into lines
-    let lines = io.load(url).replace(/\r/g, '').split("\n");
+    let lines = fs.readFileSync(url, "utf-8").replace(/\r/g, '').split("\n");
     //Self ref for scoping issues
     var self = this;
     //Now parse every line
@@ -57,7 +65,7 @@ function Ini(url){
      */
     this.save = function(){
         //Save back to dsk at original location
-        io.save(this.url, this.stringify());
+        fs.writeFileSync(this.url, this.stringify(), "utf-8");
     }
 
     /**

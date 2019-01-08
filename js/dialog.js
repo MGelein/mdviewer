@@ -12,9 +12,12 @@ const filters = [
  * @param {Function} callback the function that is called once files have been seleted. Param is filename array.
  */
 function showOpenDialog(callback) {
+    let mostRecent = ini.get("mostRecent");
+    if(!mostRecent) mostRecent = ".";
     dialog.showOpenDialog({
         title: "Load a Markdown File",
         "filters": filters,
+        defaultPath: mostRecent,
         properties: ["openFile"]
     }, callback);
 }
@@ -25,6 +28,29 @@ function showOpenDialog(callback) {
 function handleLoadButton() {
     showOpenDialog(function (filepaths) {
         //Start loading the first file
-        if (filepaths && filepaths.length > 0) loadTrackdata(filepaths[0]);
+        if (filepaths && filepaths.length > 0) loadFile(filepaths[0]);
     });
+}
+
+/**
+ * Shortcut to load the most recently opened file
+ */
+function handleMostRecent(){
+    loadFile(ini.get('mostRecent'));
+}
+
+/**
+ * Loads the provided .md file
+ * @param {String} url 
+ */
+function loadFile(url){
+    //Set the most recent file correctly
+    ini.set("mostRecent", url);
+    //Now actually load it
+    let contents = fs.readFileSync(url, "utf-8");
+    //Then convert it to html using the marked plugin
+    let html = marked(contents);
+    //Finally set the content of the contents div to the marked markdown
+    document.getElementById('content').innerHTML = html;
+    $('content').html(html);
 }
