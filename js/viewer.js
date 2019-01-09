@@ -11,7 +11,7 @@ $(document).ready(function () {
  */
 function search() {
     //Empty the search field
-    $('#searchInput').attr('value', '');
+    $('#searchInput').val("");
     //Then fade in the blackout
     $('#searchBlackout').fadeIn(400, function () {
         $('#searchInput').focus().unbind('keyup').keyup(function (event) {
@@ -20,6 +20,10 @@ function search() {
                 let match = matches[0];
                 let fullPath = match.location.replace(/\\/g, '/') + "/" + match.name + ".md";
                 loadFile(fullPath);
+            }
+            if(event.keyCode == 27){//ESC
+                $('#searchBlackout').fadeOut();
+                $('#searchInput').val("");
             }
         });
         doSearch();
@@ -47,12 +51,22 @@ function doSearch() {
         let fullPath = match.location.replace(/\\/g, '/') + "/" + match.name + ".md";
         let display = match.name.split(val);
         display = display.join("<b>" + val + "</b>");
-        html += "<li class='searchResult' onclick='loadFile(\"" + fullPath + "\")'>" + display + "</li>";
+        html += "<li class='searchResult' onclick='loadFile(\"" + fullPath + "\")'>" + display
+             + "<em>" + shortenLoc(match.location) + "</em></li>";
     });
     html += "</ul>";
     //Set the HTML of the results
     $('#searchResults').html(html);
     return matches;
+}
+
+/**
+ * Shortens the provided url, by removing the static location (absolute path) of 
+ * the solestreia folder itself
+ * @param {String} url 
+ */
+function shortenLoc(url){
+    return url.substring(url.indexOf("solestreia") + 10);
 }
 
 /**

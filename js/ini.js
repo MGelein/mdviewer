@@ -9,7 +9,7 @@ ini.init = function(){
     //Also set the most recent button correct
     let mostRecent = ini.get('mostRecent');
     if(mostRecent){
-        document.getElementById('mostRecentButton').innerHTML = "Open Most Recent: " + mostRecent;
+        $('#mostRecentButton').html("Open Most Recent: " + shortenLoc(mostRecent));
     }
 }
 
