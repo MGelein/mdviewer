@@ -71,7 +71,7 @@ function parseFinal() {
         if (href.length == 0) href = $(this).text().trim().toLowerCase();
         //Now find that entry in the list of entries
         linkNames.forEach(linkName => {
-            if (linkName.name === href) {
+            if (linkName.name === href || linkName.name === href.replace(/ /g, '-')) {
                 //Start loading that file using our own channel, add the current working directory
                 loadFile(linkName.location + "/" + linkName.name + ".md");
             }
