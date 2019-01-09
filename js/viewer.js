@@ -1,3 +1,6 @@
+/**Import command execution */
+const { exec } = require('child_process');
+
 /**
  * Entry point of the code
  */
@@ -75,23 +78,6 @@ function shortenLoc(url){
  * if no extension was found
  */
 function parseFinal() {
-    //For all links, add a custom click handler
-    $('a').unbind('click').click(function (event) {
-        //Prevent the standard event from firing
-        event.preventDefault();
-        //See if the HREF has been set
-        let href = $(this).attr('href').trim().toLowerCase();
-        //If left empty, it means the content of the tag is the name of the link
-        if (href.length == 0) href = $(this).text().trim().toLowerCase();
-        //Now find that entry in the list of entries
-        linkNames.forEach(linkName => {
-            if (linkName.name === href || linkName.name === href.replace(/ /g, '-')) {
-                //Start loading that file using our own channel, add the current working directory
-                loadFile(linkName.location + "/" + linkName.name + ".md");
-            }
-        });
-    });
-
     //Set image width in percent to the alt-text of the image
     $('img').each(function (index, image) {
         //Retrieve ATL attribute, if set, else ignore, just use default settings
@@ -117,10 +103,12 @@ function parseFinal() {
         $(this).attr('src', pwd() + $(this).attr('src'));
     });
     
-    //Finally, replace all {} with span badge tags
+    //Finally, replace all {} with span badge tags,
+    //And find any command tags
     let html = $('#content').html();
     html = html.replace(/\{/g, '<span class="badge">');
     html = html.replace(/\}/g, '</span>');
+    html = replaceCMD(html);
     $('#content').html(html);
 
     //Now go through all badges, and set their color dependent on their text
@@ -157,4 +145,53 @@ function parseFinal() {
                 $(badge).addClass('badge-info');
         }
     });
+
+    //For all links, add a custom click handler
+    $('a').unbind('click').click(function (event) {
+        //Prevent the standard event from firing
+        event.preventDefault();
+        //See if the HREF has been set
+        let href = $(this).attr('href').trim().toLowerCase();
+        //If left empty, it means the content of the tag is the name of the link
+        if (href.length == 0) href = $(this).text().trim().toLowerCase();
+        //Now find that entry in the list of entries
+        linkNames.forEach(linkName => {
+            if (linkName.name === href || linkName.name === href.replace(/ /g, '-')) {
+                //Start loading that file using our own channel, add the current working directory
+                loadFile(linkName.location + "/" + linkName.name + ".md");
+            }
+        });
+    });
+
+    //Overwrite any click handler for command links
+    $('.command').unbind('click').click(function(event){
+        //Prevent normal click event from firing
+        event.preventDefault();
+        //Now execute this command (BE VERY CAREFUL WITH THIS!)
+        //First cd to the current working directory, then execute the command
+         exec('start cmd.exe /K "cd ' + pwd() + " & " + $(this).text().trim() + '"');
+    });
+}
+
+/**
+ * Replaces all the command tokesn from the provided text
+ * @param {String} src 
+ */
+function replaceCMD(src){
+    //Start and end tags to place in the HTML
+    let start = "<a href='#' class='badge badge-dark command'>";
+    let end = "</a>";
+    //Find the first index
+    let index = src.indexOf('CMD(');
+    //Keep searching untill we have replaced all of them
+    while(index > -1){
+        //Start searching for the end of this CMD thing
+        let psgEnd = src.indexOf(')', index);
+        //Replace it with the start and end tags
+        src = src.substring(0, index) + start + src.substring(index + 4, psgEnd) + end + src.substring(psgEnd + 1);
+        //Find the next occurence
+        index = src.indexOf('CMD(');
+    }
+    //Return the edited text
+    return src;
 }
