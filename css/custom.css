@@ -11,12 +11,12 @@ img{
     padding: 1em;
 }
 
-ul{
+#searchBlackout ul{
     list-style-type: none;
     padding: 0;
 }
 
-li > em{
+#searchBlackout li > em{
     float: right;
 }
 

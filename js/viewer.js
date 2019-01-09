@@ -116,4 +116,45 @@ function parseFinal() {
         //Finally, normalize all urls to the current pwd
         $(this).attr('src', pwd() + $(this).attr('src'));
     });
+    
+    //Finally, replace all {} with span badge tags
+    let html = $('#content').html();
+    html = html.replace(/\{/g, '<span class="badge">');
+    html = html.replace(/\}/g, '</span>');
+    $('#content').html(html);
+
+    //Now go through all badges, and set their color dependent on their text
+    $('.badge').each(function(index, badge){
+        let text = $(badge).text().trim().toLowerCase();
+        switch(text){
+            case 'cmbt':
+            case 'combat':
+            case 'combt':
+            case 'cmbat':
+                $(badge).addClass('badge-danger');
+                break;
+            case 'pzl':
+            case 'puzzle':
+            case 'puzzl':
+            case 'puzl':
+            case 'pzzle':
+                $(badge).addClass('badge-primary');
+                break;
+            case 'chl':
+            case 'challenge':
+            case 'chlng':
+            case 'challeng':
+            case 'chlg':
+                $(badge).addClass('badge-warning');
+                break;
+            case 'rp':
+            case 'roleplay':
+            case 'rolep':
+            case 'rplay':
+                $(badge).addClass('badge-success');
+                break;
+            default:
+                $(badge).addClass('badge-info');
+        }
+    });
 }
