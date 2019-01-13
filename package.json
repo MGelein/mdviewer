@@ -1,6 +1,6 @@
 {
   "name": "mdviewer",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Viewing Markdown files for my D&D campaigns",
   "main": "main.js",
   "scripts": {
