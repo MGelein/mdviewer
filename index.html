@@ -16,6 +16,8 @@
             <span class='pointer' onclick='newFile()' id='newButton'>&#x1f5ce;&nbsp;New</span>
             <span class='pointer' onclick='edit()' id='saveButton' style='display:none;'>&#x1f4be;&nbsp;Save</span>
             <span class='pointer' onclick='loadFile()' id='cancelButton' style='display:none;'>&#x274c;&nbsp;Cancel</span>
+            <span class='pointer' onclick='removeFile()' id='removeButton'>&#x1f5d1;&nbsp;Delete</span>
+
         </div>
         <div id="contentHolder" class="col-xs-12">
             <div id='content'>
@@ -46,12 +48,28 @@
     </div>
 
     <div id="newBlackout" style="display:none;">
-            <div id="newPopup">
-                <input id="newInput" class="form-control" type="text" placeholder="Type your filename without extension...(ESC to close)" />
-                <br>
-                <span id='newFeedback'></span>
-            </div>
+        <div id="newPopup">
+            <label for='newInput'>Filename:</label>
+            <input id="newInput" class="form-control" type="text" placeholder="Type your filename without extension...(ESC to close)" />
+            <span id='newFeedback'></span>
+            <br>
+            <label for='newSelect'>Template (Optional)</label>
+            <select class='form-control' id='newSelect'>
+            </select>
+            <br>
+            <button onclick='createFile()' class='btn btn-success'>OK</button>
+            <button onclick='closeNewFile()' class='btn btn-warning'>Cancel</button>
         </div>
+    </div>
+
+    <div id="removeBlackout" style="display:none;">
+        <div id="removePopup" class='text-center'>
+            <h3 class>Do you really want to remove this file</h3>
+            <p><span id='removeFile'></span></p>
+            <button onclick='doRemove()' class='btn btn-danger'>Yes</button>
+            <button onclick='cancelRemove()' class='btn btn-warning'>No</button>
+        </div>
+    </div>
 
     <!-- Insert this line above script imports -->
     <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>

@@ -59,11 +59,11 @@ function pwd() {
 /**
  * Starts editing the currently opened file
  */
-function edit(){
+function edit() {
     //Retrieve what file is loaded
     let url = ini.get('mostRecent');
     //Now go and load the markdown code for that file
-    if(!EDITMODE){
+    if (!EDITMODE) {
         //First set that we're editing
         EDITMODE = true;
         //Next load the mdCode from disk
@@ -76,7 +76,8 @@ function edit(){
         $('#editContents').val(markdown);
         $('#editor').show();
         $('#searchButton').hide();
-    }else{//Else we're saving the edited code
+        $('#deleteButton').hide();
+    } else {//Else we're saving the edited code
         let mdCode = $('#editContents').val();
         console.log(mdCode);
         fs.writeFileSync(url, mdCode, 'utf-8');
@@ -88,58 +89,110 @@ function edit(){
 /**
  * Starts new file creation
  */
-function newFile(){
+function newFile() {
     //Empty the input field
     $('#newInput').val("");
     //Then fade in the blackout
     $('#newBlackout').fadeIn(400, function () {
         $('#newInput').focus().unbind('keyup').keyup(function (event) {
-            if(event.keyCode == 27){//ESC
-                $('#newBlackout').fadeOut();
-                $('#newInput').val("");
-            }else if(event.keyCode == 13){//Enter
-                //Check if this was a valid name
-                let value = $('#newInput').val().trim();
-                if(value.length < 1){
-                    giveFeedback("Filename must be at least one character!");
-                    return;
-                }
-                //Add the markdown extension
-                value = value + ".md";
-                let filename = value.replace(/ /g, '-');
-                let url = pwd() + filename;
-                if(fs.existsSync(url)){
-                    giveFeedback('File <em>(' + url + ")</em> already exists");
-                    return;
-                }
-                //If we made it this far, the filename is unique, and we can save it
-                fs.writeFileSync(url, '# ' + value.replace('.md', '') + '\n', 'utf-8');
-                //Now we need to rerun indexFiles
-                indexFiles();
-                //Hide the inputs
-                $('#newBlackout').fadeOut();
-                $('#newInput').val("");
-                //And load the file after a bit
-                $('#content').html('Loading...')
-                setTimeout(()=>{
-                    loadFile(url);
-                }, 500)
+            if (event.keyCode == 27) {//ESC
+                closeNewFile();
+            } else if (event.keyCode == 13) {//Enter
+                createFile();
             }
         });
     });
 }
 
 /**
+ * Starts the procedure that removes a file
+ */
+function removeFile(){
+    //Set the file that we want to remove in the span
+    $('#removeFile').html(ini.get('mostRecent'));
+    //Fade in the prompt
+    $('#removeBlackout').fadeIn(400);
+}
+
+/**
+ * Actually removes the file
+ */
+function doRemove(){
+    //Deletes the most recently opened file
+    fs.unlinkSync(ini.get('mostRecent'));
+    //Re-index files afterwards
+    indexFiles();
+    //Unset the mostRecent button
+    ini.set('mostRecent', -1);
+    //Hide the editorbar
+    $('#editDiv').fadeOut();
+    //And show the opening screen
+    $('#content').html(openingScreen);
+    $('#mostRecentButton').addClass('disabled');
+    $('#mostRecentButton').attr('onclick', '').html('&lt;None&gt;');
+    //Close the remove thingy
+    cancelRemove();
+}
+
+/**
+ * Closes the remove file interface
+ */
+function cancelRemove(){
+    $('#removeBlackout').fadeOut();
+}
+
+/**
+ * Closes the newFile interface
+ */
+function closeNewFile(){
+    $('#newBlackout').fadeOut();
+    $('#newInput').val("");
+}
+
+/**
+ * This starts the file creation process (or at least tries it)
+ */
+function createFile(){
+    //Check if this was a valid name
+    let value = $('#newInput').val().trim().toLowerCase();
+    if (value.length < 1) {
+        giveFeedback("Filename must be at least one character!");
+        return;
+    }
+    //Add the markdown extension
+    value = value + ".md";
+    let filename = value.replace(/ /g, '-');
+    let url = pwd() + filename;
+    if (fs.existsSync(url)) {
+        giveFeedback('File <em>(' + url + ")</em> already exists");
+        return;
+    }
+    let type = $('#newSelect').val();
+    //If we made it this far, the filename is unique, and we can save it
+    fs.writeFileSync(url, applyTemplate(type, value), 'utf-8');
+    //Now we need to rerun indexFiles
+    indexFiles();
+    //Hide the inputs
+    $('#newBlackout').fadeOut();
+    $('#newInput').val("");
+    //And load the file after a bit
+    $('#content').html('Loading...')
+    setTimeout(() => {
+        loadFile(url);
+    }, 500);
+}
+
+/**
  * Provides the given feedback for 2 seconds, before fading away
  * @param {String} s 
  */
-function giveFeedback(s){
+function giveFeedback(s) {
     //Set the message
     $('#newFeedback').html(s);
     //And set a timer
-    setTimeout(function(){
+    setTimeout(function () {
         //If this is the same message as we're trying to get rid of
-        if($('#newFeedback').html() == s){
+        if ($('#newFeedback').html() == s) {
             $('#newFeedback').html('');
         }
     }, 2000);
@@ -151,7 +204,7 @@ function giveFeedback(s){
  */
 function loadFile(url) {
     //If no file was specified, load the most recent one
-    if(!url) url = ini.get('mostRecent');
+    if (!url) url = ini.get('mostRecent');
     //Set edit mode to false
     EDITMODE = false;
     $('#editor').hide();
@@ -160,6 +213,7 @@ function loadFile(url) {
     $('#saveButton').hide();
     $('#searchButton').show();
     $('#cancelButton').hide();
+    $('#deleteButton').show();
     //Show the editButton
     $('#editDiv').fadeIn();
     //If there is a double markdown extension, ignore it

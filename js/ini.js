@@ -3,14 +3,22 @@ const fs = require('fs');
 
 /**Holds all ini methods */
 var ini = {};
+/**Holds the opening screen HTML */
+var openingScreen = "";
 //Setup temporary init function, get's replaced with instance of ini class later
 ini.init = function(){
     ini = new Ini("config.ini");
     //Also set the most recent button correct
     let mostRecent = ini.get('mostRecent');
-    if(mostRecent){
+    if(mostRecent && mostRecent != -1){
         $('#mostRecentButton').html("Open Most Recent: " + shortenLoc(mostRecent));
+    }else{
+        $('#mostRecentButton').html('&lt;None&gt;').addClass('disabled');
     }
+    //Load all templates
+    loadTemplates();
+    //Save the default opening screen to a variable
+    openingScreen = $('#content').html();
 }
 
 /**

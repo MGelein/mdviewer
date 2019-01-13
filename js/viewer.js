@@ -16,6 +16,82 @@ function indexFiles(){
     exec("cd " + pwd() + " & node indexFiles");
 }
 
+var templates = {};
+/**
+ * Loads the templates from the templates folder, these can be used
+ * to start of a new file so you don't have to start from scratch every
+ * time.
+ */
+function loadTemplates(){
+    //Read all template files that exists
+    let templateFiles = fs.readdirSync(pwd() + "/templates/");
+    //Add default (empty) template
+    templates['none'] = {name: "None", contents: ""};
+    //Add every template to the templates object
+    templateFiles.forEach(file =>{
+        //Read the data from the file template
+        let type = file.replace('.md', '').toLowerCase();
+        let name = capitalizeAll(type);
+        let contents = fs.readFileSync(pwd() + "/templates/" + file, "utf-8");
+        //And add it to the templates object
+        templates[type] = {"name": name, "contents": contents};
+    });
+    //now populate the template select for new file selection
+    let html = "";
+    let types = Object.keys(templates);
+    types.forEach(type =>{
+        //Retrieve this template
+        let temp = templates[type];
+        html += "<option value='" + type +"'>" + temp.name + "</option>";
+    });
+    //Finally actually set this html as the content of the template select
+    $('#newSelect').html(html);
+}
+
+/**
+ * Applies the provided template to the provided filename
+ * @param {String} type 
+ * @param {String} name 
+ */
+function applyTemplate(type, name){
+    //Set fallback type if type is not existing type
+    if(!templates[type]) type = "none";
+    //Parse the name
+    name = name.replace('.md', '');
+    name = capitalizeAll(name);
+    //Get the template contents
+    let template = templates[type].contents;
+    //Apply all the transforms for the template and return
+    return template.replace(/%%FILENAME%%/g, name);
+}
+
+/**
+ * Capitalizes a single word
+ * @param {String} s 
+ */
+function capitalize(s){
+    return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
+}
+
+/**
+ * Capitalize every word of a sentence
+ * @param {String} s 
+ */
+function capitalizeAll(s){
+    //Make sure no trailing spaces are there
+    s = s.trim();
+    //Replace all hyphens with spaces
+    s = s.replace(/-/g, ' ');
+    //Split on spaces
+    let words = s.split(" ");
+    let wordsC = [];
+    words.forEach(word =>{
+        wordsC.push(capitalize(word));
+    });
+    //Return the newly assembled string
+    return wordsC.join(" ");
+}
+
 /**
  * Shows the search window
  */
