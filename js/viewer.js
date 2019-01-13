@@ -10,6 +10,13 @@ $(document).ready(function () {
 });
 
 /**
+ * Re-indexes the files if we have added new ones
+ */
+function indexFiles(){
+    exec("cd " + pwd() + " & node indexFiles");
+}
+
+/**
  * Shows the search window
  */
 function search() {
