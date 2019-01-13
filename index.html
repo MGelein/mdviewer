@@ -19,7 +19,7 @@
             <span class='pointer' onclick='removeFile()' id='removeButton'>&#x1f5d1;&nbsp;Delete</span>
 
         </div>
-        <div id="contentHolder" class="col-xs-12">
+        <div id="contentHolder" class="col-xs-12 box">
             <div id='content'>
                 <h1>Welcome to Markdown Viewer</h1>
                 <p>To get started with Markdown Viewer, you just have to open a Markdown file. Click the button below
@@ -36,6 +36,20 @@
                 <textarea id='editContents'></textarea>
             </div>
         </div>
+    </div>
+
+    <div id='linksFromDiv' class='box'>
+        <h5>Links From:</h5>
+        <ul id='linksFrom'>
+
+        </ul>
+    </div>
+
+    <div id='linksToDiv' class='box'>
+        <h5>Links To:</h5>
+        <ul id='linksTo'>
+
+        </ul>
     </div>
 
     <div id="searchBlackout" style="display:none;">

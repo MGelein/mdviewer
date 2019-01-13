@@ -12,7 +12,7 @@ $(document).ready(function () {
 /**
  * Re-indexes the files if we have added new ones
  */
-function indexFiles(){
+function indexFiles() {
     exec("cd " + pwd() + " & node indexFiles");
 }
 
@@ -22,27 +22,27 @@ var templates = {};
  * to start of a new file so you don't have to start from scratch every
  * time.
  */
-function loadTemplates(){
+function loadTemplates() {
     //Read all template files that exists
     let templateFiles = fs.readdirSync(pwd() + "/templates/");
     //Add default (empty) template
-    templates['none'] = {name: "None", contents: ""};
+    templates['none'] = { name: "None", contents: "" };
     //Add every template to the templates object
-    templateFiles.forEach(file =>{
+    templateFiles.forEach(file => {
         //Read the data from the file template
         let type = file.replace('.md', '').toLowerCase();
         let name = capitalizeAll(type);
         let contents = fs.readFileSync(pwd() + "/templates/" + file, "utf-8");
         //And add it to the templates object
-        templates[type] = {"name": name, "contents": contents};
+        templates[type] = { "name": name, "contents": contents };
     });
     //now populate the template select for new file selection
     let html = "";
     let types = Object.keys(templates);
-    types.forEach(type =>{
+    types.forEach(type => {
         //Retrieve this template
         let temp = templates[type];
-        html += "<option value='" + type +"'>" + temp.name + "</option>";
+        html += "<option value='" + type + "'>" + temp.name + "</option>";
     });
     //Finally actually set this html as the content of the template select
     $('#newSelect').html(html);
@@ -53,9 +53,9 @@ function loadTemplates(){
  * @param {String} type 
  * @param {String} name 
  */
-function applyTemplate(type, name){
+function applyTemplate(type, name) {
     //Set fallback type if type is not existing type
-    if(!templates[type]) type = "none";
+    if (!templates[type]) type = "none";
     //Parse the name
     name = name.replace('.md', '');
     name = capitalizeAll(name);
@@ -69,7 +69,7 @@ function applyTemplate(type, name){
  * Capitalizes a single word
  * @param {String} s 
  */
-function capitalize(s){
+function capitalize(s) {
     return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
 }
 
@@ -77,7 +77,7 @@ function capitalize(s){
  * Capitalize every word of a sentence
  * @param {String} s 
  */
-function capitalizeAll(s){
+function capitalizeAll(s) {
     //Make sure no trailing spaces are there
     s = s.trim();
     //Replace all hyphens with spaces
@@ -85,7 +85,7 @@ function capitalizeAll(s){
     //Split on spaces
     let words = s.split(" ");
     let wordsC = [];
-    words.forEach(word =>{
+    words.forEach(word => {
         wordsC.push(capitalize(word));
     });
     //Return the newly assembled string
@@ -102,12 +102,12 @@ function search() {
     $('#searchBlackout').fadeIn(400, function () {
         $('#searchInput').focus().unbind('keyup').keyup(function (event) {
             let matches = doSearch();
-            if(matches.length == 1 && event.keyCode == 13){//If we pressed enter while the last one was there
+            if (matches.length == 1 && event.keyCode == 13) {//If we pressed enter while the last one was there
                 let match = matches[0];
                 let fullPath = match.location.replace(/\\/g, '/') + "/" + match.name + ".md";
                 loadFile(fullPath);
             }
-            if(event.keyCode == 27){//ESC
+            if (event.keyCode == 27) {//ESC
                 $('#searchBlackout').fadeOut();
                 $('#searchInput').val("");
             }
@@ -126,7 +126,7 @@ function doSearch() {
     linkNames.forEach(linkName => {
         if (val.trim().length == 0) {
             matches.push(linkName);
-        }else if (linkName.name.indexOf(val) > -1) {
+        } else if (linkName.name.indexOf(val) > -1) {
             matches.push(linkName);
         }
     });
@@ -138,7 +138,7 @@ function doSearch() {
         let display = match.name.split(val);
         display = display.join("<b>" + val + "</b>");
         html += "<li class='searchResult' onclick='loadFile(\"" + fullPath + "\")'>" + display
-             + "<em>" + shortenLoc(match.location) + "</em></li>";
+            + "<em>" + shortenLoc(match.location) + "</em></li>";
     });
     html += "</ul>";
     //Set the HTML of the results
@@ -151,7 +151,7 @@ function doSearch() {
  * the solestreia folder itself
  * @param {String} url 
  */
-function shortenLoc(url){
+function shortenLoc(url) {
     return url.substring(url.indexOf("solestreia") + 10);
 }
 
@@ -185,7 +185,7 @@ function parseFinal() {
         //Finally, normalize all urls to the current pwd
         $(this).attr('src', pwd() + $(this).attr('src'));
     });
-    
+
     //Finally, replace all {} with span badge tags,
     //And find any command tags
     let html = $('#content').html();
@@ -195,9 +195,9 @@ function parseFinal() {
     $('#content').html(html);
 
     //Now go through all badges, and set their color dependent on their text
-    $('.badge').each(function(index, badge){
+    $('.badge').each(function (index, badge) {
         let text = $(badge).text().trim().toLowerCase();
-        switch(text){
+        switch (text) {
             case 'cmbt':
             case 'combat':
             case 'combt':
@@ -238,36 +238,63 @@ function parseFinal() {
         //If left empty, it means the content of the tag is the name of the link
         if (href.length == 0) href = $(this).text().trim().toLowerCase();
         //Now find that entry in the list of entries
-        linkNames.forEach(linkName => {
-            if (linkName.name === href || linkName.name === href.replace(/ /g, '-')) {
-                //Start loading that file using our own channel, add the current working directory
-                loadFile(linkName.location + "/" + linkName.name + ".md");
-            }
-        });
+        openLink(findLinkName(href));
     });
 
     //Overwrite any click handler for command links
-    $('.command').unbind('click').click(function(event){
+    $('.command').unbind('click').click(function (event) {
         //Prevent normal click event from firing
         event.preventDefault();
         //Now execute this command (BE VERY CAREFUL WITH THIS!)
         //First cd to the current working directory, then execute the command
-         exec('start cmd.exe /K "cd ' + pwd() + " & " + $(this).text().trim() + '"');
+        exec('start cmd.exe /K "cd ' + pwd() + " & " + $(this).text().trim() + '"');
     });
+}
+
+/**
+ * Opens the file denoted by the provided linkName
+ * @param {linkName} linkName 
+ */
+function openLink(linkName){
+    if (linkName) loadFile(linkName.location + "/" + linkName.name + ".md");
+    else console.log("That linkName was not found");
+}
+
+/**
+ * Tries to find a linkname for the provided query, returns linkName object
+ * @param {String} query 
+ */
+function findLinkName(query) {
+    //Lowercase the query
+    query = query.toLowerCase();
+    //See if we found the result yet
+    let found = undefined
+    //Now go through all links
+    linkNames.forEach(linkName => {
+        //If we have found something, we don't even have to chec
+        if (found != undefined) return;
+        //Check if the name matches
+        if (linkName.name === query || linkName.name === query.replace(/ /g, '-')) {
+            //This is a match
+            found = linkName;
+        }
+    });
+    //If we find something, return it, if not, then don't
+    return found;
 }
 
 /**
  * Replaces all the command tokesn from the provided text
  * @param {String} src 
  */
-function replaceCMD(src){
+function replaceCMD(src) {
     //Start and end tags to place in the HTML
     let start = "<a href='#' class='badge badge-dark command'>";
     let end = "</a>";
     //Find the first index
     let index = src.indexOf('CMD(');
     //Keep searching untill we have replaced all of them
-    while(index > -1){
+    while (index > -1) {
         //Start searching for the end of this CMD thing
         let psgEnd = src.indexOf(')', index);
         //Replace it with the start and end tags

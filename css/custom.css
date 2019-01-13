@@ -63,9 +63,45 @@ CLASSES
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
 
+.box{
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 0.5em;
+    padding: 1em;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.link{
+    cursor: pointer;
+}
+
+.link.text-danger{
+    cursor: default;
+}
+
 /**
 IDENTIFIERS
 **/
+#linksTo, #linksFrom{
+    list-style-type: none;
+    padding: 0;
+}
+
+#linksToDiv{
+    position: absolute;
+    left: 89vw;
+    top: 2em;
+    width: 10vw;
+    padding: 0.5em;
+}
+
+#linksFromDiv{
+    position: absolute;
+    left: 1vw;
+    top: 2em;
+    width: 10vw;
+    padding: 0.5em;
+}
+
 
 #editContents{
     overflow: scroll;
@@ -106,11 +142,7 @@ IDENTIFIERS
 }
 
 #contentHolder{
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: 1em;
     padding-top: 1.5em;
     margin-top: 1em;
     width: 100%;
-    border-radius: 1em;
-    border: 1px solid rgba(255, 255, 255, 0.8);
 }

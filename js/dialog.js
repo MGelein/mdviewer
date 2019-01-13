@@ -79,7 +79,6 @@ function edit() {
         $('#deleteButton').hide();
     } else {//Else we're saving the edited code
         let mdCode = $('#editContents').val();
-        console.log(mdCode);
         fs.writeFileSync(url, mdCode, 'utf-8');
         //Now after saving, load that file for showing
         loadFile(url);
@@ -107,7 +106,7 @@ function newFile() {
 /**
  * Starts the procedure that removes a file
  */
-function removeFile(){
+function removeFile() {
     //Set the file that we want to remove in the span
     $('#removeFile').html(ini.get('mostRecent'));
     //Fade in the prompt
@@ -117,7 +116,7 @@ function removeFile(){
 /**
  * Actually removes the file
  */
-function doRemove(){
+function doRemove() {
     //Deletes the most recently opened file
     fs.unlinkSync(ini.get('mostRecent'));
     //Re-index files afterwards
@@ -137,14 +136,14 @@ function doRemove(){
 /**
  * Closes the remove file interface
  */
-function cancelRemove(){
+function cancelRemove() {
     $('#removeBlackout').fadeOut();
 }
 
 /**
  * Closes the newFile interface
  */
-function closeNewFile(){
+function closeNewFile() {
     $('#newBlackout').fadeOut();
     $('#newInput').val("");
 }
@@ -152,7 +151,7 @@ function closeNewFile(){
 /**
  * This starts the file creation process (or at least tries it)
  */
-function createFile(){
+function createFile() {
     //Check if this was a valid name
     let value = $('#newInput').val().trim().toLowerCase();
     if (value.length < 1) {
@@ -235,4 +234,45 @@ function loadFile(url) {
     //Get rid of the search thingy
     $('#searchBlackout').hide();
     $('#toolDiv').show();
+
+    //And find all links in this file, add them to the list
+    let links = [];
+    $('#content a').each(function (index, link) {
+        let name = $(link).text();
+        if (links.indexOf(name) == -1) {
+            links.push($(link).text());
+        }
+    });
+    //For each one, check if it is dead or not, and add to list
+    let linkHtml = "";
+    links.forEach(link => {
+        linkHtml += `<li class='${getLinkClass(link)}'>`;
+        linkHtml += link;
+        linkHtml += "</li>";
+    });
+    //Set it in the DOM
+    $('#linksTo').html(linkHtml);
+    //And update their click handlers
+    $('#linksTo li.valid').unbind('click').click(function(){
+        let link = findLinkName($(this).text());
+        openLink(link);
+    });
+}
+
+/**
+ * Gets the link classes for this specific link (tries to see if it even exists)
+ * @param {String} link 
+ */
+function getLinkClass(link) {
+    //All links have the link class
+    let classes = ["link"];
+    //Then check if we exist
+    if (findLinkName(link)) {
+        classes.push("valid", "text-primary");
+    } else {
+        classes.push("invalid", "text-danger");
+    }
+    //Join classes on a space to make a good class attribute
+    return classes.join(" ");
+
 }
