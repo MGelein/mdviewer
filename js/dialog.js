@@ -239,22 +239,47 @@ function loadFile(url) {
     let links = [];
     $('#content a').each(function (index, link) {
         let name = $(link).text();
+        let href = $(link).attr('href');
+        console.log(name, href);
+        if (href && href.length > 0) {
+            name = href;
+        } else {
+            name = $(link).text();
+        }
+        console.log(name);
         if (links.indexOf(name) == -1) {
-            links.push($(link).text());
+            links.push(name);
         }
     });
+    console.log(links);
     //For each one, check if it is dead or not, and add to list
     let linkHtml = "";
     links.forEach(link => {
         linkHtml += `<li class='${getLinkClass(link)}'>`;
-        linkHtml += link;
+        linkHtml += capitalizeAll(link);
         linkHtml += "</li>";
     });
     //Set it in the DOM
     $('#linksTo').html(linkHtml);
+    //Now find all links to this file
+    linkHtml = "";
+    findLinksTo(url).forEach(link => {
+        linkHtml += `<li class='${getLinkClass(link)}'>`;
+        linkHtml += capitalizeAll(link);
+        linkHtml += "</li>";
+    });
+    //Set it in the DOM
+    $('#linksFrom').html(linkHtml);
     //And update their click handlers
-    $('#linksTo li.valid').unbind('click').click(function(){
-        let link = findLinkName($(this).text());
+    $('#linksTo,#linksFrom li.valid').unbind('click').click(function () {
+        let href = $(this).attr('href');
+        let link;
+        //First check to see if the href is defined, else just read the text of the link
+        if (href && href.length > 0) {
+            link = findLinkName(href);
+        } else {
+            link = findLinkName($(this).text());
+        }
         openLink(link);
     });
 }

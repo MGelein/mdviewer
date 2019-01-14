@@ -261,6 +261,35 @@ function openLink(linkName){
 }
 
 /**
+ * Returns array of names of files that link to this file
+ * @param {String} url 
+ */
+function findLinksTo(url){
+    //Read the fileIndex file
+    let fileIndex = JSON.parse(fs.readFileSync(pwd() + "fileIndex.json"));
+    //Shorten the url to match the name, and remove extension
+    url = url.replace(/\\/g, '/');
+    url = url.substring(url.lastIndexOf("/") + 1).replace('.md', '');
+    url = url.replace(/-/g, ' ').toLowerCase();
+    console.log(url);
+    //Array that holds all files that link to here
+    let links = [];
+    //Go through all files in the folder to check
+    fileIndex.entries.forEach(entry =>{
+        if(entry.links){
+            let linkFound = false;
+            entry.links.forEach(link =>{
+                link = link.toLowerCase();
+                if(url === link){
+                    links.push(capitalizeAll(entry.name.replace(/-/g, ' ').replace('.md', '')));
+                }
+            });
+        }
+    });
+    return links;
+}
+
+/**
  * Tries to find a linkname for the provided query, returns linkName object
  * @param {String} query 
  */
