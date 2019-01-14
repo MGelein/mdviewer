@@ -5,6 +5,7 @@ body{
     background-image: url(../img/bg.jpg);
     background-attachment: fixed;
     background-size: cover;
+    text-shadow: 0px 0px 2px white;
 }
 
 img{
