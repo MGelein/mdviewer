@@ -80,6 +80,7 @@ function edit() {
     } else {//Else we're saving the edited code
         let mdCode = $('#editContents').val();
         fs.writeFileSync(url, mdCode, 'utf-8');
+        indexFiles();
         //Now after saving, load that file for showing
         loadFile(url);
     }
