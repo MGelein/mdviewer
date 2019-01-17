@@ -54,20 +54,6 @@ function parseDir(url, fileName) {
 }
 
 /**
- * Returns a rootPointer file for the provided path
- * @param {String} path 
- */
-function rootPointer(path) {
-    //Count the parts in the path, and repeat the ../ string as many times
-    let rootUrl = "../".repeat(path.split("/").length - 1);
-    //Return an array of paths
-    return JSON.stringify([
-        rootUrl + "indexFiles.json",
-        rootUrl + "linkNames.json"
-    ]);
-}
-
-/**
  * Adds the provided fileObject to the list of linnknames
  */
 function addFile(file, location) {
