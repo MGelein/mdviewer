@@ -241,13 +241,13 @@ function loadFile(url) {
     $('#content a').each(function (index, link) {
         let name = $(link).text();
         let href = $(link).attr('href');
-        console.log(name, href);
+        //Skip empty links (Usually commands or similar)
+        if(href == '#') return;
         if (href && href.length > 0) {
             name = href;
         } else {
             name = $(link).text();
         }
-        console.log(name);
         if (links.indexOf(name) == -1) {
             links.push(name);
         }

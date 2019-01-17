@@ -102,7 +102,7 @@ function search() {
     $('#searchBlackout').fadeIn(400, function () {
         $('#searchInput').focus().unbind('keyup').keyup(function (event) {
             let matches = doSearch();
-            if (matches.length == 1 && event.keyCode == 13) {//If we pressed enter while the last one was there
+            if (event.keyCode == 13) {//If we pressed enter, open the top option
                 let match = matches[0];
                 let fullPath = match.location.replace(/\\/g, '/') + "/" + match.name + ".md";
                 loadFile(fullPath);
@@ -165,7 +165,7 @@ function parseFinal() {
     $('img').each(function (index, image) {
         //Retrieve ATL attribute, if set, else ignore, just use default settings
         let alt = $(this).attr('alt');
-        if (!alt) return;
+        if (!alt) alt = "";
         //Now check if there is a letter in there, afterwards, remove the letters
         alt = alt.toLowerCase();
         let float = "left";
@@ -178,7 +178,7 @@ function parseFinal() {
         let width = "50";
         alt = alt.replace(/[c,l,r]/g, '');
         //Check if the part is actually a number
-        if (!isNaN(alt)) width = alt;
+        if (alt.length > 0 && !isNaN(alt)) width = alt;
         width = "width:" + width + "%;";
         //Now set this as the style of the img
         $(this).attr("style", width + float).addClass('img');
