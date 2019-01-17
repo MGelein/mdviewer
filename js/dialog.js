@@ -221,9 +221,7 @@ function loadFile(url) {
     console.log("LOAD::" + url);
     //Set the most recent file correctly
     ini.set("mostRecent", url);
-    //Start loading the root.json
-    let folderJSON = JSON.parse(fs.readFileSync(pwd() + "root.json", "utf-8"));
-    linkNames = JSON.parse(fs.readFileSync(pwd() + folderJSON[1], "utf-8"));
+    linkNames = JSON.parse(fs.readFileSync(pwd() + "linkNames.json", "utf-8"));
     //Now actually load the main file
     let contents = fs.readFileSync(url, "utf-8");
     //Then convert it to html using the marked plugin
@@ -252,7 +250,6 @@ function loadFile(url) {
             links.push(name);
         }
     });
-    console.log(links);
     //For each one, check if it is dead or not, and add to list
     let linkHtml = "";
     links.forEach(link => {

@@ -13,7 +13,7 @@ $(document).ready(function () {
  * Re-indexes the files if we have added new ones
  */
 function indexFiles() {
-    exec("cd " + pwd() + " & node indexFiles");
+    exec("node ./js/indexFiles " + pwd());
 }
 
 var templates = {};
@@ -271,7 +271,6 @@ function findLinksTo(url){
     url = url.replace(/\\/g, '/');
     url = url.substring(url.lastIndexOf("/") + 1).replace('.md', '');
     url = url.replace(/-/g, ' ').toLowerCase();
-    console.log(url);
     //Array that holds all files that link to here
     let links = [];
     //Go through all files in the folder to check
