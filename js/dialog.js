@@ -122,14 +122,19 @@ function doRemove() {
     fs.unlinkSync(ini.get('mostRecent'));
     //Re-index files afterwards
     indexFiles();
-    //Unset the mostRecent button
-    ini.set('mostRecent', -1);
-    //Hide the editorbar
-    $('#editDiv').fadeOut();
-    //And show the opening screen
-    $('#content').html(openingScreen);
-    $('#mostRecentButton').addClass('disabled');
-    $('#mostRecentButton').attr('onclick', '').html('&lt;None&gt;');
+    //Check if we have a previous file to fall back to
+    if (ini.get('mostRecent') === ini.get('prevRecent')) {
+        //Unset the mostRecent button
+        ini.set('mostRecent', -1);
+        //Hide the editorbar
+        $('#editDiv').fadeOut();
+        //And show the opening screen
+        $('#content').html(openingScreen);
+        $('#mostRecentButton').addClass('disabled');
+        $('#mostRecentButton').attr('onclick', '').html('&lt;None&gt;');
+    }else{
+        loadFile(ini.get('prevRecent'));
+    }
     //Close the remove thingy
     cancelRemove();
 }
@@ -219,7 +224,8 @@ function loadFile(url) {
     //If there is a double markdown extension, ignore it
     url = url.replace(/\.md\.md/g, '.md')
     console.log("LOAD::" + url);
-    //Set the most recent file correctly
+    //Set the most recent file correctly, as well as the file before that
+    ini.set('prevRecent', ini.get('mostRecent'));
     ini.set("mostRecent", url);
     linkNames = JSON.parse(fs.readFileSync(pwd() + "linkNames.json", "utf-8"));
     //Now actually load the main file
@@ -240,7 +246,7 @@ function loadFile(url) {
         let name = $(link).text();
         let href = $(link).attr('href');
         //Skip empty links (Usually commands or similar)
-        if(href == '#') return;
+        if (href == '#') return;
         if (href && href.length > 0) {
             name = href;
         } else {
