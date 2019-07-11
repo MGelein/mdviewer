@@ -269,13 +269,14 @@ function loadFile(url) {
     //Set it in the DOM
     $('#linksFrom').html(linkHtml);
     //And update their click handlers
-    $('#linksTo,#linksFrom li.valid').unbind('click').click(function () {
+    $('li.valid').unbind('click').click(function () {
         let href = $(this).attr('href');
         let link;
         //First check to see if the href is defined, else just read the text of the link
         if (href && href.length > 0) {
             link = findLinkName(href);
         } else {
+            console.log("unspecified linkname", $(this).text());
             link = findLinkName($(this).text());
         }
         openLink(link);

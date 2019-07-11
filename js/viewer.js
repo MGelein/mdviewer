@@ -257,7 +257,7 @@ function parseFinal() {
  */
 function openLink(linkName){
     if (linkName) loadFile(linkName.location + "/" + linkName.name + ".md");
-    else console.log("That linkName was not found");
+    else console.log("That linkName was not found", linkName);
 }
 
 /**
