@@ -7,6 +7,10 @@ const { exec } = require('child_process');
 $(document).ready(function () {
     //Start loading the config.ini
     ini.init();
+
+    $('body').unbind('keyup').keyup(function(event){
+        console.log(event.keyCode);
+    });
 });
 
 /**
