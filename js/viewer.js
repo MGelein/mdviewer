@@ -9,7 +9,7 @@ $(document).ready(function () {
     ini.init();
 
     $('body').unbind('keyup').keyup(function(event){
-        console.log(event.keyCode);
+        //console.log(event.keyCode);
     });
 });
 
