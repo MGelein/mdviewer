@@ -125,7 +125,7 @@ function search() {
  */
 function doSearch() {
     //Get the value from the input search
-    let val = $('#searchInput').val();
+    let val = $('#searchInput').val().toLowerCase();
     let matches = [];
     linkNames.forEach(linkName => {
         if (val.trim().length == 0) {
