@@ -1,4 +1,26 @@
 {
-    "name": "trb1914.mdviewer",
-    "main": "app.html"
+  "name": "trb1914.mdviewer",
+  "main": "app.html",
+  "version": "2.0.0",
+  "description": "A Simple Markdown Editor For DND Notes",
+  "scripts": {
+    "test": "nw ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MGelein/mdviewer.git"
+  },
+  "keywords": [
+    "markdown",
+    "dnd"
+  ],
+  "author": "Mees Gelein",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MGelein/mdviewer/issues"
+  },
+  "homepage": "https://github.com/MGelein/mdviewer#readme",
+  "dependencies": {
+    "marked": "^2.0.4"
+  }
 }
