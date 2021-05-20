@@ -1,11 +1,7 @@
 const print = console.log
 
-window.onload = ()=>{
-    stuff()
-}
+window.onload = ()=> { setup() }
 
-async function stuff(){
+async function setup(){
     await settings.load()
-    settings.anotherSetting = "manman!"
-    await settings.save()
 }
