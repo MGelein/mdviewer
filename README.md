@@ -6,3 +6,12 @@ After working with the previous iteration of MDViewer for over 2 years I have de
 
 ## What is this?
 MDViewer is a very simple application at its heart. It is a wiki-like application that allows you to create simple markdown files that are linked between eachother. This structure happens to be the exact structure which is amazing for DM'ing Dungeons and Dragons, but I can imagine this is useful in other projects as well. 
+
+## How to build
+This is mostly here as a reminder for myself:
+1. Zip all files in this folder, rename to `package.nw`
+2. Put in the folder that contains the `nw` executable for the system that we're building for.
+3. Profit.
+4. Optionally remove some files that are not strictly necessary for the build (This seems slight unstable):
+ 1. ffmpeg
+ 2. All locales except for one that it needs to boot
