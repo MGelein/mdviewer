@@ -5,10 +5,10 @@ import SideBar from './components/SideBar';
 import './app.scss';
 
 const App: React.FC = () => {
-  return <>
+  return <div className="app">
     <SideBar />
     <MainView />
-  </>
+  </div>
 }
 
 export default App;

@@ -3,7 +3,7 @@ import React from "react";
 import './side-bar.scss';
 
 const SideBar: React.FC = () => {
-    return <></>
+    return <div className="side-bar"></div>
 }
 
 export default SideBar;
