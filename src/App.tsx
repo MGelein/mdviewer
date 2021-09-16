@@ -1,8 +1,8 @@
 import React from 'react';
 import MainView from './components/MainView';
 import SideBar from './components/SideBar';
+import ProjectPicker from './components/ProjectPicker';
 import { useApp } from './util/hooks';
-import ProjectPicker from './ProjectPicker';
 
 import './app.scss';
 
