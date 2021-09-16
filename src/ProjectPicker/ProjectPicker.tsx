@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "../components/Button";
+import Icon from "../components/Icon";
 
 import './project-picker.scss';
 
@@ -12,7 +13,7 @@ const ProjectPicker: React.FC = () => {
                 open them. However you can also choose to create a new project
                 from here!
             </p>
-            <Button onClick={() => console.log}>New Project</Button>
+            <Button onClick={() => console.log}><Icon name="add" />New Project</Button>
             <h2 className="project-picker__header">Recent Projects</h2>
         </div>
     </div>);
