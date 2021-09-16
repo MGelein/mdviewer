@@ -4,6 +4,9 @@ export function setLocalStorage<T>(name: string, value: T) {
 
 export function getLocalStorage<T>(name: string, defaultValue: T) {
     const jsonString = localStorage.getItem(name);
-    if (!jsonString) return null;
+    if (!jsonString) {
+        setLocalStorage(name, defaultValue);
+        return null;
+    };
     return (JSON.parse(jsonString) ?? defaultValue) as T;
 }
