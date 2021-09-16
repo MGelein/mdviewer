@@ -13,21 +13,23 @@ const ProjectPicker: React.FC = () => {
         <div className="project-picker">
             <h1 className="project-picker__header">Welcome!</h1>
             <p>
-                This page shows your most recent projects, so you can quickly
-                open them. However you can also choose to create a new project
-                from here!
+                Let's quickly get started by creating a new project or opening
+                an existing one!
             </p>
-            <Button onClick={() => console.log}><Icon name="add" />New Project</Button>
+            <div className="project-picker-buttons">
+                <Button onClick={() => console.log}><Icon name="Add" />New Project</Button>
+                <Button onClick={() => console.log}><Icon name="Folder Open" />Open Project</Button>
+            </div>
 
             <h2 className="project-picker__header">Recent Projects</h2>
             {recentDirs.length < 1 ?
                 <p>
                     Unfortunately, you do not seem to have any recent projects.
-                    You can change this by making a new project!
+                    You can change this by making a new project.
                 </p>
                 :
                 recentDirs.map((recentDir, index) => {
-                    return <Link onClick={console.log}>{index + 1}. {recentDir}</Link>
+                    return <Link onClick={console.log}>{index + 1}.{recentDir}</Link>
                 })
             }
         </div>
