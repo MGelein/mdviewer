@@ -1,29 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useApp } from "../../util/hooks";
+import React from "react";
+import { useAnimState, useApp } from "../../util/hooks";
 import Button from "../Button";
 import Icon from "../Icon";
-import { AnimState } from "../../util/types";
 
 import './error-dialog.scss';
 
 
 const ErrorDialog: React.FC = () => {
     const { error, setError } = useApp();
-    const [wrapState, setWrapState] = useState<AnimState>('opening');
-    const [dialogState, setDialogState] = useState<AnimState>('opening');
+    const [wrapState, setWrapState] = useAnimState('opening', () => setError(null));
+    const [dialogState, setDialogState] = useAnimState();
     const onClick = () => {
         setWrapState('closing');
         setDialogState('closing');
     }
-
-    useEffect(() => {
-        if (wrapState === 'opening') setTimeout(() => setWrapState('open'), 500);
-        if (wrapState === 'closing') setTimeout(() => setError(null), 500);
-    }, [wrapState, setError]);
-
-    useEffect(() => {
-        if (dialogState === 'opening') setTimeout(() => setDialogState('open'), 500);
-    }, [dialogState]);
 
     return (<div className={`error-dialog-wrap ${wrapState}`} onClick={onClick}>
         <div className={`error-dialog ${dialogState}`}>

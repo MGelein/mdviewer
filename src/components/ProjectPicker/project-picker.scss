@@ -5,6 +5,14 @@
     border-radius: var(--border-radius);
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 
+    &.opening {
+        animation: slideInRight 0.5s ease-in-out forwards;
+    }
+
+    &.closing {
+        animation: slideOutLeft 0.5s ease-in-out forwards;
+    }
+
     &-wrap {
         flex-grow: 1;
         display: flex;
