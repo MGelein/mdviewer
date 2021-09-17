@@ -6,6 +6,8 @@ type AppContextType = {
 
     error: string | null,
     setError: React.Dispatch<React.SetStateAction<string | null>>
+
+    files: string[];
 }
 
 const AppContext = createContext<AppContextType | null>(null);
