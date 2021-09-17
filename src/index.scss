@@ -10,6 +10,7 @@
 
 :root {
   --color-foreground: #444;
+  --color-midtone: #888;
   --color-background: #eee;
   --color-light: #fff;
   --color-accent: #ff7700;
@@ -24,4 +25,22 @@
   line-height: 1.4;
   height: 100vh;
   overflow-y: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 0.6rem;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+  border-radius: var(--border-radius);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-midtone);
+  border-radius: var(--border-radius);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-foreground);
 }

@@ -1,0 +1,25 @@
+.file-entry {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background: transparent;
+    position: relative;
+    z-index: 1;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--color-accent);
+        opacity: 0;
+        z-index: -1;
+        transition: opacity 0.2s ease-in-out;
+        border-radius: calc(var(--border-radius) / 2);
+    }
+
+    &:hover {
+        &::before {
+            opacity: 0.2;
+        }
+    }
+}
