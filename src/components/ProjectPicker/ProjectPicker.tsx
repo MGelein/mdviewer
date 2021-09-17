@@ -1,8 +1,8 @@
 import React from "react";
-import Button from "../components/Button";
-import Icon from "../components/Icon";
-import Link from "../components/Link";
-import { useApp } from "../util/hooks";
+import Button from "../Button";
+import Icon from "../Icon";
+import Link from "../Link";
+import { useApp } from "../../util/hooks";
 
 import './project-picker.scss';
 
@@ -20,6 +20,9 @@ const ProjectPicker: React.FC = () => {
                 <Button onClick={() => console.log}><Icon name="Add" />New Project</Button>
                 <Button onClick={() => console.log}><Icon name="Folder Open" />Open Project</Button>
             </div>
+            {// @ts-ignore
+                <input nwdirectory="" type="file" onChange={(e) => console.log(e.target.value)} />
+            }
 
             <h2 className="project-picker__header">Recent Projects</h2>
             {recentDirs.length < 1 ?
