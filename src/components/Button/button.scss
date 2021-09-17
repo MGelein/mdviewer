@@ -22,7 +22,7 @@
         inset: 0;
         box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
         opacity: 0;
-        border-radius: 0.5rem;
+        border-radius: var(--border-radius);
         transition: opacity 0.2s ease-in-out;
     }
 

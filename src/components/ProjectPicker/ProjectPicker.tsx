@@ -13,7 +13,7 @@ type PickerMode = "open" | "new";
 const clickFilePicker = () => document.getElementById('directoryPicker')?.click();
 
 const ProjectPicker: React.FC = () => {
-    const { recentDirs } = useApp();
+    const { recentDirs, setError } = useApp();
     const [pickerMode, setPickerMode] = useState<PickerMode>('open');
 
     const openProject = () => {
@@ -29,9 +29,9 @@ const ProjectPicker: React.FC = () => {
     const pickFolder = async (url: string) => {
         const isEmpty = await isDirEmpty(url);
         if (pickerMode === 'new') {
-
+            if (!isEmpty) return setError('You have to choose an empty directory to start a new project');
         } else if (pickerMode === 'open') {
-
+            if (isEmpty) return setError('This directory does not contain any files, please select another directory');
         }
     }
 

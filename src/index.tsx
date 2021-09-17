@@ -4,6 +4,7 @@ import App from './App';
 import AppContextProvider from './components/AppContextProvider/AppContextProvider';
 
 import './index.scss';
+import './animations.scss';
 
 ReactDOM.render(
   <React.StrictMode>

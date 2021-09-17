@@ -1,0 +1,42 @@
+.error-dialog {
+    background: var(--color-light);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: clamp(40ch, 70%, 80ch);
+
+    &.opening {
+        animation: slideInDown 0.3s ease-in-out forwards 0.2s;
+    }
+
+    &.closing {
+        animation: slideOutDown 0.3s ease-in-out forwards;
+    }
+
+    &__text {
+        margin: 0.5rem 0;
+    }
+
+    &-wrap {
+        position: absolute;
+        z-index: 100;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &.opening {
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        &.closing {
+            animation: fadeOut 0.3s ease-in-out forwards 0.2s;
+        }
+    }
+}

@@ -5,9 +5,10 @@ import ProjectPicker from './components/ProjectPicker';
 import { useApp } from './util/hooks';
 
 import './app.scss';
+import ErrorDialog from './components/ErrorDialog';
 
 const App: React.FC = () => {
-  const { workdir } = useApp();
+  const { workdir, error } = useApp();
 
   return <div className="app">
     {workdir ?
@@ -17,6 +18,7 @@ const App: React.FC = () => {
       </> :
       <ProjectPicker />
     }
+    {error && <ErrorDialog />}
   </div>
 }
 

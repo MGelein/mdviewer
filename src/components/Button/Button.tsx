@@ -4,7 +4,7 @@ import './button.scss';
 
 type Props = {
     color?: 'accent' | 'foreground' | 'background';
-    onClick: () => void;
+    onClick?: () => void;
 }
 
 const Button: React.FC<Props> = ({ onClick, color = "accent", children }) => {
