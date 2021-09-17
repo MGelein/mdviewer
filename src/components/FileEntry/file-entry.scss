@@ -4,6 +4,8 @@
     cursor: pointer;
     background: transparent;
     position: relative;
+    white-space: pre;
+    font-size: 0.9rem;
     z-index: 1;
 
     &::before {

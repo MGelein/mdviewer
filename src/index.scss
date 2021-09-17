@@ -24,7 +24,8 @@
   color: var(--color-foreground);
   line-height: 1.4;
   height: 100vh;
-  overflow-y: hidden;
+  width: 100vw;
+  overflow: hidden;
 }
 
 ::-webkit-scrollbar {

@@ -29,7 +29,7 @@ export function getFileType(url: string, baseDir: string | null) {
 
 export const typeToIcon = (type: string) => {
     if (type in iconMappings) return iconMappings[type];
-    return 'help';
+    return iconMappings.file;
 }
 
 const iconMappings: Record<string, string> = {

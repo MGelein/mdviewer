@@ -49,3 +49,11 @@ export function useDirectory(url: string | null, onChange: (filelist: string[]) 
         listFiles(url).then((files) => onChange(files));
     }, [url, eventDescription, onChange]);
 }
+
+export function useKeyDown(key: string, onKeyDown: () => void) {
+    useEffect(() => {
+        const keydown = (e: KeyboardEvent) => e.key === key && onKeyDown();
+        document.addEventListener('keydown', keydown);
+        return () => document.removeEventListener('keydown', keydown);
+    }, [key, onKeyDown]);
+}
