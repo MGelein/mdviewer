@@ -12,22 +12,38 @@ type PickerMode = "open" | "new";
 
 const clickFilePicker = () => document.getElementById('directoryPicker')?.click();
 
+const addRecentDir = (oldDirs: string[], newDir: string) => {
+    const newDirIndex = oldDirs.indexOf(newDir);
+    if (newDirIndex > -1) {
+        oldDirs.splice(newDirIndex, 1);
+        return [newDir, ...oldDirs];
+    }
+    return [newDir, ...oldDirs];
+}
+
 const ProjectPicker: React.FC = () => {
     const { setError, setWorkdir } = useApp();
     const loadDir = useRef('');
-    const [animState, setAnimState] = useAnimState('opening', () => setWorkdir(loadDir.current));
+    const [animState, setAnimState] = useAnimState('opening', () => {
+        setRecentDirs((dirs) => addRecentDir(dirs, loadDir.current));
+        setWorkdir(loadDir.current);
+    });
     const [recentDirs, setRecentDirs] = useStorage<string[]>('recentDirs', []);
     const [pickerMode, setPickerMode] = useState<PickerMode>('open');
 
     const loadProject = (url: string) => {
         setAnimState('closing');
-        setRecentDirs((dirs) => [...dirs, url]);
         loadDir.current = url;
     }
 
     const openProject = () => {
         setPickerMode("open");
         clickFilePicker();
+    }
+
+    const openRecentProject = (url: string) => {
+        setPickerMode("open");
+        pickFolder(url);
     }
 
     const newProject = () => {
@@ -67,7 +83,7 @@ const ProjectPicker: React.FC = () => {
                 </p>
                 :
                 recentDirs.map((recentDir, index) => {
-                    return <Link onClick={console.log}>{index + 1}.{recentDir}</Link>
+                    return <Link key={index} onClick={() => openRecentProject(recentDir)}>{index + 1}.&nbsp;{recentDir}</Link>
                 })
             }
         </div>
