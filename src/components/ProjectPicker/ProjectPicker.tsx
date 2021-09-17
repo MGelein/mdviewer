@@ -12,7 +12,6 @@ type PickerMode = "open" | "new";
 
 const clickFilePicker = () => document.getElementById('directoryPicker')?.click();
 
-
 const ProjectPicker: React.FC = () => {
     const { setError, setWorkdir } = useApp();
     const loadDir = useRef('');
@@ -61,7 +60,7 @@ const ProjectPicker: React.FC = () => {
 
 
             <h2 className="project-picker__header">Recent Projects</h2>
-            {recentDirs.length < 1 ?
+            {!recentDirs || recentDirs.length < 1 ?
                 <p>
                     Unfortunately, you do not seem to have any recent projects.
                     You can change this by making a new project.
