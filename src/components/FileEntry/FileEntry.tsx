@@ -10,9 +10,18 @@ type Props = {
 }
 
 const FileEntry: React.FC<Props> = ({ url }) => {
+    const { focusFile, setFocusFile, openFiles } = useApp();
     const { workdir } = useApp();
     const type = getFileType(url, workdir);
-    return <div className="file-entry">
+    const isFocusFile = focusFile === url;
+    const isOpenFile = openFiles.includes(url);
+    const classes = `file-entry ${isFocusFile ? 'focus' : ''} ${isOpenFile ? 'open' : ''}`;
+
+    const openFile = () => {
+        setFocusFile(url);
+    }
+
+    return <div onClick={openFile} className={classes}>
         <FileTypeBadge type={type} />
         {url}
     </div>

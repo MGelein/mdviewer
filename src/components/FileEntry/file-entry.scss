@@ -24,4 +24,17 @@
             opacity: 0.2;
         }
     }
+
+    &.open {
+        &::before {
+            opacity: 0.1;
+        }
+    }
+    &.focus {
+        color: var(--color-light);
+
+        &::before {
+            opacity: 0.7;
+        }
+    }
 }

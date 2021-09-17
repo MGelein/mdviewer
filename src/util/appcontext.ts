@@ -7,6 +7,12 @@ type AppContextType = {
     error: string | null,
     setError: React.Dispatch<React.SetStateAction<string | null>>
 
+    openFiles: string[],
+    setOpenFiles: React.Dispatch<React.SetStateAction<string[]>>
+
+    focusFile: string | null,
+    setFocusFile: React.Dispatch<React.SetStateAction<string | null>>,
+
     files: string[];
 }
 

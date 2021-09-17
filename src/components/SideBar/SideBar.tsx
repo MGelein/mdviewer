@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAnimState, useApp, useKeyDown } from "../../util/hooks";
 import Button from "../Button";
 import FileEntry from "../FileEntry";

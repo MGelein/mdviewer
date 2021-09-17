@@ -5,7 +5,7 @@
     flex-direction: column;
 
     &.opening {
-        animation: slideInRight 0.5s ease-in-out forwards;
+        animation: slideInLeft 0.5s ease-in-out forwards;
     }
 
     &__search {
