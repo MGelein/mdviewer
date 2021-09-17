@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import AppContext from "./appcontext";
 import { getLocalStorage, setLocalStorage } from "./storage";
 import { AnimState } from "./types";
+import { watch } from "fs";
+import { listFiles } from "./file";
 
 export function useApp() {
     const context = useContext(AppContext);
@@ -31,4 +33,19 @@ export function useAnimState(startingState: AnimState = "opening", onClose?: () 
     }, [animState, setAnimState, onClose]);
 
     return [animState, setAnimState] as [AnimState, React.Dispatch<React.SetStateAction<AnimState>>]
+}
+
+export function useDirectory(url: string | null, onChange: (filelist: string[]) => void) {
+    const [eventDescription, setEventDescription] = useState<string>();
+
+    if (url) {
+        watch(url, (event, filename) => {
+            setEventDescription(`${event} - ${filename}`);
+        });
+    }
+
+    useEffect(() => {
+        if (!url) return;
+        listFiles(url).then((files) => onChange(files));
+    }, [url, eventDescription, onChange]);
 }

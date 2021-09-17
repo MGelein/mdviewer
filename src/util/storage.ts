@@ -9,7 +9,6 @@ export function getLocalStorage<T>(name: string, defaultValue: T) {
         return null;
     };
     const jsonValue = JSON.parse(jsonString);
-    console.log({ jsonValue, defaultValue });
     if (jsonValue === null) return defaultValue;
     return jsonValue as T;
 }
