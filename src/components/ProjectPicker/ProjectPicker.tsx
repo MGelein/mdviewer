@@ -1,13 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../Button";
 import Icon from "../Icon";
 import Link from "../Link";
+import DirectoryPicker from "../DirectoryPicker";
 import { useApp } from "../../util/hooks";
+import { isDirEmpty } from "../../util/file";
 
 import './project-picker.scss';
 
+type PickerMode = "open" | "new";
+
+const clickFilePicker = () => document.getElementById('directoryPicker')?.click();
+
 const ProjectPicker: React.FC = () => {
     const { recentDirs } = useApp();
+    const [pickerMode, setPickerMode] = useState<PickerMode>('open');
+
+    const openProject = () => {
+        setPickerMode("open");
+        clickFilePicker();
+    }
+
+    const newProject = () => {
+        setPickerMode("new");
+        clickFilePicker();
+    }
+
+    const pickFolder = async (url: string) => {
+        const isEmpty = await isDirEmpty(url);
+        if (pickerMode === 'new') {
+
+        } else if (pickerMode === 'open') {
+
+        }
+    }
 
     return (<div className="project-picker-wrap">
         <div className="project-picker">
@@ -17,12 +43,13 @@ const ProjectPicker: React.FC = () => {
                 an existing one!
             </p>
             <div className="project-picker-buttons">
-                <Button onClick={() => console.log}><Icon name="Add" />New Project</Button>
-                <Button onClick={() => console.log}><Icon name="Folder Open" />Open Project</Button>
+                <Button onClick={newProject}><Icon name="Add" />New Project</Button>
+                <Button onClick={openProject}><Icon name="Folder Open" />
+                    Open Project
+                </Button>
+                <DirectoryPicker id="directoryPicker" onChange={pickFolder} />
             </div>
-            {// @ts-ignore
-                <input nwdirectory="" type="file" onChange={(e) => console.log(e.target.value)} />
-            }
+
 
             <h2 className="project-picker__header">Recent Projects</h2>
             {recentDirs.length < 1 ?
