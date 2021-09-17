@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useApp } from "../../util/hooks";
 import Button from "../Button";
 import Icon from "../Icon";
+import { AnimState } from "../../util/types";
 
 import './error-dialog.scss';
 
-type AnimState = 'opening' | 'open' | 'closing';
 
 const ErrorDialog: React.FC = () => {
     const { error, setError } = useApp();

@@ -1,0 +1,1 @@
+export type AnimState = 'opening' | 'open' | 'closing';

@@ -3,7 +3,7 @@ import Button from "../Button";
 import Icon from "../Icon";
 import Link from "../Link";
 import DirectoryPicker from "../DirectoryPicker";
-import { useApp } from "../../util/hooks";
+import { useApp, useStorage } from "../../util/hooks";
 import { isDirEmpty } from "../../util/file";
 
 import './project-picker.scss';
@@ -13,7 +13,8 @@ type PickerMode = "open" | "new";
 const clickFilePicker = () => document.getElementById('directoryPicker')?.click();
 
 const ProjectPicker: React.FC = () => {
-    const { recentDirs, setError } = useApp();
+    const { setError } = useApp();
+    const [recentDirs, setRecentDirs] = useStorage<string[]>('recentDirs', []);
     const [pickerMode, setPickerMode] = useState<PickerMode>('open');
 
     const openProject = () => {
