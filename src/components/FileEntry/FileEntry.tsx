@@ -1,5 +1,5 @@
 import React from "react";
-import { canOpenFileType, getFileType, typeToIcon } from "../../util/file";
+import { canOpenFileType, getFileType } from "../../util/file";
 import { useApp } from "../../util/hooks";
 import FileTypeBadge from "../FileTypeBadge";
 

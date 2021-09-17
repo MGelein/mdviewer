@@ -1,6 +1,5 @@
 import React from "react";
 import { useApp } from "../../util/hooks";
-import Button from "../Button";
 import Icon from "../Icon";
 
 import './open-tab.scss';
@@ -10,7 +9,7 @@ type Props = {
 }
 
 const OpenTab: React.FC<Props> = ({ url }) => {
-    const { focusFile, setFocusFile, setOpenFiles, openFiles } = useApp();
+    const { focusFile, setFocusFile, setOpenFiles } = useApp();
     const isFocusFile = url === focusFile;
 
     const makeFocus = () => {
