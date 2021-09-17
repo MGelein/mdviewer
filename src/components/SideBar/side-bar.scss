@@ -1,4 +1,28 @@
 .side-bar {
     min-width: 15rem;
     flex-grow: 2;
+
+    &__search {
+        display: flex;
+
+        > * {
+            margin: 0;
+        }
+
+        &-field {
+            outline: none;
+            border: 0.08rem solid var(--color-foreground);
+            border-radius: var(--border-radius);
+            flex-grow: 1;
+            padding: 0.5rem;
+            font-size: 1rem;
+            margin: 0.5rem 0.5rem 0.5rem 1rem;
+        }
+
+        &-field + * {
+            margin: 0.5rem 0;
+            min-width: 2rem;
+            min-height: 2rem;
+        }
+    }
 }
