@@ -16,7 +16,7 @@ export function getFileType(url: string, baseDir: string | null) {
     const extension = parts[parts.length - 1];
     if (extension !== url) {
         const ext = extension.toLowerCase();
-        if (ext in iconMappings) return iconMappings[ext];
+        if (iconMappings[ext]) return ext;
         return 'file';
     }
 
@@ -25,6 +25,12 @@ export function getFileType(url: string, baseDir: string | null) {
     const stats = statSync(path);
     if (stats.isDirectory()) return 'directory';
     return 'file';
+}
+
+export function canOpenFileType(type: string) {
+    console.log(type);
+    if (type === 'md') return true;
+    return false;
 }
 
 export const typeToIcon = (type: string) => {

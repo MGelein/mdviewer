@@ -1,5 +1,5 @@
 import React from "react";
-import { getFileType } from "../../util/file";
+import { canOpenFileType, getFileType, typeToIcon } from "../../util/file";
 import { useApp } from "../../util/hooks";
 import FileTypeBadge from "../FileTypeBadge";
 
@@ -15,13 +15,14 @@ const FileEntry: React.FC<Props> = ({ url }) => {
     const type = getFileType(url, workdir);
     const isFocusFile = focusFile === url;
     const isOpenFile = openFiles.includes(url);
-    const classes = `file-entry ${isFocusFile ? 'focus' : ''} ${isOpenFile ? 'open' : ''}`;
+    const canOpen = canOpenFileType(type);
+    const classes = `file-entry ${isFocusFile ? 'focus' : ''} ${isOpenFile ? 'open' : ''} ${canOpen ? 'editable' : ''}`;
 
     const openFile = () => {
         setFocusFile(url);
     }
 
-    return <div onClick={openFile} className={classes}>
+    return <div onClick={canOpen ? openFile : undefined} className={classes}>
         <FileTypeBadge type={type} />
         {url}
     </div>
