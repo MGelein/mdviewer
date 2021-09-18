@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { canOpenFileType, getFileType } from "../../util/file";
 import { useAnimState, useApp, useKeyDown } from "../../util/hooks";
 import Button from "../Button";
 import FileEntry from "../FileEntry";
@@ -7,6 +8,7 @@ import Icon from "../Icon";
 import './side-bar.scss';
 
 const SideBar: React.FC = () => {
+    const { workdir } = useApp();
     const [animState] = useAnimState();
     const [query, setQuery] = useState('');
     const { files } = useApp();
@@ -14,7 +16,9 @@ const SideBar: React.FC = () => {
 
     useEffect(() => {
         const regex = new RegExp(query.replace(/\s/g, '-'), 'gi')
-        setFiltered([...files.filter(file => file.match(regex))])
+        setFiltered([...files.filter(file => {
+            return file.match(regex) && canOpenFileType(getFileType(file, workdir));
+        })])
     }, [setFiltered, files, query]);
 
     useKeyDown('Escape', () => {

@@ -28,7 +28,6 @@ export function getFileType(url: string, baseDir: string | null) {
 }
 
 export function canOpenFileType(type: string) {
-    console.log(type);
     if (type === 'md') return true;
     return false;
 }
