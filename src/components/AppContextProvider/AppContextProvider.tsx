@@ -27,8 +27,9 @@ const AppContextProvider: React.FC = ({ children }) => {
     }, [focusFile, setOpenFiles]);
 
     useEffect(() => {
-        if (!workdir || !focusFile) return;
+        if (!workdir) return;
         const loadFileData = async () => {
+            if (!focusFile) return setFileData('');
             const data = await loadFile(focusFile, workdir);
             setFileData(data);
         }

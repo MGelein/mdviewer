@@ -6,7 +6,7 @@ import './md-preview.scss';
 
 const MDPreview: React.FC = () => {
     const { fileData } = useApp();
-    const html = useMemo(() => marked(fileData), [fileData, marked]);
+    const html = useMemo(() => marked(fileData), [fileData]);
 
     return (<div className="md-preview"
         dangerouslySetInnerHTML={{ __html: html }}

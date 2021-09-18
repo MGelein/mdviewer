@@ -1,0 +1,23 @@
+.view-placeholder {
+    position: absolute;
+    inset: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .material-icons {
+        font-size: 3rem;
+    }
+
+    &__message {
+        width: clamp(40ch, 50%, 80ch);
+        text-align: center;
+        opacity: 0.5;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

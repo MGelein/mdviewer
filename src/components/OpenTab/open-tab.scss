@@ -4,11 +4,12 @@
     padding: 1rem 0.5rem;
     background: var(--color-light);
     border-radius: var(--border-radius) var(--border-radius) 0 0;
+    border: none;
     cursor: pointer;
+    opacity: 0.8;
     box-shadow: 0 0 0.1rem rgba(0, 0, 0, 0.2);
     font-size: 0.9rem;
     position: relative;
-    border-bottom: 0.1rem solid var(--color-accent);
     display: flex;
     align-items: center;
     flex-shrink: 1;
@@ -27,9 +28,10 @@
     }
 
     &.focus {
-        border: none;
+        border-bottom: 0.1rem solid var(--color-accent);
         cursor: default;
         flex-shrink: 0;
+        opacity: 1;
 
         &::after {
             opacity: 1;

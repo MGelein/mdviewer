@@ -28,15 +28,18 @@ const SideBar: React.FC = () => {
 
     return <div className={`side-bar ${animState}`}>
         <div className="side-bar__search">
-            <input
-                id="searchField"
-                type="text"
-                value={query}
-                className="side-bar__search-field"
-                placeholder="Search..."
-                onChange={(e) => setQuery(e.target.value)}
-            />
-            <Button size="small"><Icon name="search" /></Button>
+            <label className="side-bar__search-label">
+                <Icon name="search" />
+                <input
+                    id="searchField"
+                    type="text"
+                    value={query}
+                    className="side-bar__search-field"
+                    placeholder="Search..."
+                    onChange={(e) => setQuery(e.target.value)}
+                />
+            </label>
+            <Button title="Settings" size="small"><Icon name="settings" /></Button>
         </div>
         <div className="side-bar__explorer">
             <div className="side-bar__explorer-list">

@@ -6,9 +6,10 @@ type Props = {
     color?: 'accent' | 'foreground' | 'background';
     onClick?: () => void;
     size?: 'small' | 'large';
+    title?: string,
 }
 
-const Button: React.FC<Props> = ({ onClick, color = "accent", children, size = "large" }) => {
+const Button: React.FC<Props> = ({ title, onClick, color = "accent", children, size = "large" }) => {
     const fgColor = color === 'accent' ? 'light' : 'foreground';
     return <button
         className={`button ${size}`}
@@ -16,6 +17,7 @@ const Button: React.FC<Props> = ({ onClick, color = "accent", children, size = "
             background: `var(--color-${color})`,
             color: `var(--color-${fgColor})`
         }}
+        title={title}
         onClick={onClick}>
         {children}
     </button>
