@@ -19,7 +19,7 @@ const SideBar: React.FC = () => {
         setFiltered([...files.filter(file => {
             return file.match(regex) && canOpenFileType(getFileType(file, workdir));
         })])
-    }, [setFiltered, files, query]);
+    }, [setFiltered, files, query, workdir]);
 
     useKeyDown('Escape', () => {
         setQuery('');

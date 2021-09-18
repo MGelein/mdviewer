@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AppContext from "../../util/appcontext";
+import { loadFile } from "../../util/file";
 import { useDirectory } from "../../util/hooks";
 
 function uniqueFilter<T>(value: T, index: number, arr: T[]) {
@@ -12,6 +13,7 @@ const AppContextProvider: React.FC = ({ children }) => {
     const [files, setFiles] = useState<string[]>([]);
     const [openFiles, setOpenFiles] = useState<string[]>([]);
     const [focusFile, setFocusFile] = useState<string | null>(null);
+    const [fileData, setFileData] = useState<string>('');
 
     useDirectory(workdir, setFiles);
 
@@ -24,11 +26,21 @@ const AppContextProvider: React.FC = ({ children }) => {
         }
     }, [focusFile, setOpenFiles]);
 
+    useEffect(() => {
+        if (!workdir || !focusFile) return;
+        const loadFileData = async () => {
+            const data = await loadFile(focusFile, workdir);
+            setFileData(data);
+        }
+        loadFileData();
+    }, [focusFile, workdir, setFileData]);
+
     return (<AppContext.Provider value={{
         workdir, setWorkdir,
         error, setError,
         openFiles, setOpenFiles,
         focusFile, setFocusFile,
+        fileData, setFileData,
         files,
     }}>{children}</AppContext.Provider>);
 }

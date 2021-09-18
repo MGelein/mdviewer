@@ -14,6 +14,9 @@ type AppContextType = {
     setFocusFile: React.Dispatch<React.SetStateAction<string | null>>,
 
     files: string[];
+
+    fileData: string;
+    setFileData: React.Dispatch<React.SetStateAction<string>>,
 }
 
 const AppContext = createContext<AppContextType | null>(null);
