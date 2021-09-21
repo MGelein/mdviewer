@@ -9,7 +9,7 @@ const ViewPlaceholder: React.FC = () => {
             <div className="view-placeholder__header">
                 <Icon name="report" /><h1>Nothing here...</h1>
             </div>
-            <p>To get started, please open one of the files in the bar on the right</p>
+            <p>To get started, please open one of the files in the bar on the left</p>
         </div>
     </div>);
 }
