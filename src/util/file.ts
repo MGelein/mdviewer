@@ -1,7 +1,7 @@
 import { promises, statSync } from "fs";
 import { join } from "path";
 
-const { readdir, readFile } = promises;
+const { readdir, readFile, writeFile } = promises;
 
 export async function isDirEmpty(url: string) {
     return (await listFiles(url)).length < 1;
@@ -15,6 +15,10 @@ export async function loadFile(url: string, baseDir: string) {
     const path = join(baseDir, url);
     const data = await readFile(path, { encoding: 'utf8' });
     return data;
+}
+
+export async function saveFile(url: string, baseDir: string, data: string) {
+    return writeFile(join(baseDir, url), data, { encoding: 'utf-8' });
 }
 
 export function getFileType(url: string, baseDir: string | null) {
