@@ -1,6 +1,7 @@
 import React from "react";
 import { useApp } from "../../util/hooks";
 import { EditMode } from "../../util/types";
+import MDEdit from "../MDEdit";
 import MDPreview from "../MDPreview";
 import ViewControls from "../ViewControls";
 import ViewPlaceholder from "../ViewPlaceholder";
@@ -17,7 +18,7 @@ const FileView: React.FC = () => {
             <>
                 <ViewControls />
                 {editMode === 'preview' && <MDPreview />}
-                {editMode === 'edit' && <></>}
+                {editMode === 'edit' && <MDEdit />}
             </>
             :
             <ViewPlaceholder />
