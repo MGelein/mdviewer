@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import { EditMode } from "./types";
 
 type AppContextType = {
     workdir: string | null,
@@ -13,10 +14,13 @@ type AppContextType = {
     focusFile: string | null,
     setFocusFile: React.Dispatch<React.SetStateAction<string | null>>,
 
-    files: string[];
+    files: string[],
 
-    fileData: string;
+    fileData: string,
     setFileData: React.Dispatch<React.SetStateAction<string>>,
+
+    editModes: Record<string, EditMode>,
+    setEditModes: React.Dispatch<React.SetStateAction<Record<string, EditMode>>>,
 }
 
 const AppContext = createContext<AppContextType | null>(null);

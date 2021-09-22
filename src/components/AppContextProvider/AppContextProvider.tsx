@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import AppContext from "../../util/appcontext";
 import { loadFile } from "../../util/file";
 import { useDirectory } from "../../util/hooks";
+import { EditMode } from "../../util/types";
 
 function uniqueFilter<T>(value: T, index: number, arr: T[]) {
     return arr.indexOf(value) === index;
@@ -14,6 +15,7 @@ const AppContextProvider: React.FC = ({ children }) => {
     const [openFiles, setOpenFiles] = useState<string[]>([]);
     const [focusFile, setFocusFile] = useState<string | null>(null);
     const [fileData, setFileData] = useState<string>('');
+    const [editModes, setEditModes] = useState<Record<string, EditMode>>({});
 
     useDirectory(workdir, setFiles);
 
@@ -32,9 +34,10 @@ const AppContextProvider: React.FC = ({ children }) => {
             if (!focusFile) return setFileData('');
             const data = await loadFile(focusFile, workdir);
             setFileData(data);
+            if (!(focusFile in editModes)) editModes[focusFile] = 'preview';
         }
         loadFileData();
-    }, [focusFile, workdir, setFileData]);
+    }, [focusFile, workdir, setFileData, editModes]);
 
     return (<AppContext.Provider value={{
         workdir, setWorkdir,
@@ -42,6 +45,7 @@ const AppContextProvider: React.FC = ({ children }) => {
         openFiles, setOpenFiles,
         focusFile, setFocusFile,
         fileData, setFileData,
+        editModes, setEditModes,
         files,
     }}>{children}</AppContext.Provider>);
 }

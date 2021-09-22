@@ -9,7 +9,7 @@ type Props = {
 }
 
 const OpenTab: React.FC<Props> = ({ url }) => {
-    const { focusFile, setFocusFile, setOpenFiles } = useApp();
+    const { focusFile, setFocusFile, setOpenFiles, editModes } = useApp();
     const isFocusFile = url === focusFile;
 
     const makeFocus = () => {
@@ -28,6 +28,7 @@ const OpenTab: React.FC<Props> = ({ url }) => {
             const newFiles = files.filter((openFile) => {
                 return openFile !== url;
             });
+            delete editModes[url];
             return newFiles;
         });
     }
