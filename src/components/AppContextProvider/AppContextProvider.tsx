@@ -33,8 +33,8 @@ const AppContextProvider: React.FC = ({ children }) => {
         const loadFileData = async () => {
             if (!focusFile) return setFileData('');
             const data = await loadFile(focusFile, workdir);
-            setFileData(data);
             if (!(focusFile in editModes)) editModes[focusFile] = 'preview';
+            setFileData(data);
         }
         loadFileData();
     }, [focusFile, workdir, setFileData, editModes]);

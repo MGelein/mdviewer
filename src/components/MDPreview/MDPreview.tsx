@@ -8,9 +8,9 @@ const MDPreview: React.FC = () => {
     const { fileData } = useApp();
     const html = useMemo(() => marked(fileData), [fileData]);
 
-    return (<div className="md-preview"
+    return <div className="md-preview"
         dangerouslySetInnerHTML={{ __html: html }}
-    ></div>)
+    ></div>
 }
 
 export default MDPreview;
