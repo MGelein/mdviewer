@@ -20,13 +20,13 @@ function markupMarkdownLines(mdLines: string[]) {
 
 function markupMarkdown(md: string) {
     md = md.replace(/(#+.+)/g, markup("header"));
-    md = md.replace(/([_*][_*][^_*]+[_*][_*])/g, markup("bold"));
-    md = md.replace(/([^_*][_*][^_*]+[_*][^_*])/g, markup("italics"));
-    md = md.replace(/(`[^`]+`)/g, markup("code-inline"));
-    md = md.replace(/(!?\[.*]\(.*\))/g, markup("anchor"));
-    md = md.replace(/(~~[^~].+~~)/g, markup("strikethrough"));
-    md = md.replace(/(\{[^}]+})/g, markup("bullet"));
-    md = md.replace(/(CMD\(.+\))/gi, markup('command'));
+    md = md.replace(/([_*][_*][^_*]+?[_*][_*])/g, markup("bold"));
+    md = md.replace(/([^_*][_*][^_*]+?[_*][^_*])/g, markup("italics"));
+    md = md.replace(/(`[^`]+?`)/g, markup("code-inline"));
+    md = md.replace(/(!?\[.*]\(.*?\))/g, markup("anchor"));
+    md = md.replace(/(~~[^~].+?~~)/g, markup("strikethrough"));
+    md = md.replace(/(\{[^}]+?})/g, markup("bullet"));
+    md = md.replace(/(CMD\(.+?\))/gi, markup('command'));
     return md;
 }
 

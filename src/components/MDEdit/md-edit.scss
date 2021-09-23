@@ -60,8 +60,6 @@
         .command {
             background: var(--color-foreground);
             color: var(--color-light);
-            border-radius: var(--border-radius);
-            padding: 0 calc(var(--border-radius) / 2);
         }
     }
 }

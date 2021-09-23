@@ -14,6 +14,12 @@
     align-items: center;
     flex-shrink: 1;
     min-width: 0;
+    transform: translateY(0.25rem);
+    transition: transform 0.2s ease-in-out;
+
+    &:hover {
+        transform: none;
+    }
 
     &::after {
         content: "";
@@ -32,6 +38,7 @@
         cursor: default;
         flex-shrink: 0;
         opacity: 1;
+        transform: none;
 
         &::after {
             opacity: 1;
@@ -43,6 +50,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+
+        &:hover {
+            transform: scale(1.2);
+            color: var(--color-accent);
+        }
 
         .material-icons {
             font-size: 1rem;
