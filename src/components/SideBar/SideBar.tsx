@@ -42,6 +42,9 @@ const SideBar: React.FC = () => {
             <Button title="Settings" size="small"><Icon name="settings" /></Button>
         </div>
         <div className="side-bar__explorer">
+            <div className="side-bar__explorer-controls">
+
+            </div>
             <div className="side-bar__explorer-list">
                 {filtered && filtered.map((file, index) => {
                     return <FileEntry url={file} key={index} />
