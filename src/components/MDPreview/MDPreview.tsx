@@ -1,5 +1,6 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import marked from 'marked';
+import { exec } from "child_process";
 import { useApp } from "../../util/hooks";
 
 import './md-preview.scss';
@@ -19,9 +20,46 @@ function markup(className: string) {
 }
 
 const MDPreview: React.FC = () => {
-    const { fileData } = useApp();
+    const { fileData, workdir, setFocusFile } = useApp();
     const markup = useMemo(() => marked(fileData), [fileData]);
     const html = useMemo(() => insertExtendedSyntax(markup), [markup]);
+
+    const openLink = useCallback((e: Event) => {
+        e.preventDefault();
+        const link = (e.target as HTMLAnchorElement);
+        const linkHref = link.getAttribute('href');
+        const linkText = linkHref || link.innerText;
+        const fileName = linkText.replace(/\s/g, '-').toLowerCase() + '.md';
+        setFocusFile(fileName);
+    }, [setFocusFile]);
+
+    const executeCommand = useCallback((e: Event) => {
+        const commandText = (e.target as HTMLSpanElement).innerText;
+        const command = commandText.replace(/CMD\((.+?)\)/gi, '$1');
+        exec(`start cmd.exe /K "cd ${workdir}  & ${command}"`);
+    }, []);
+
+    useEffect(() => {
+        const commands = document.querySelectorAll('.command');
+        commands.forEach(command => {
+            command.addEventListener('click', executeCommand);
+        });
+
+        const links = document.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', openLink);
+        });
+
+        return () => {
+            commands.forEach((command) => {
+                command.removeEventListener('click', executeCommand);
+            });
+
+            links.forEach((link) => {
+                link.removeEventListener('click', openLink);
+            });
+        }
+    }, [html, openLink]);
 
     return <div className="md-preview"
         dangerouslySetInnerHTML={{ __html: html }}
