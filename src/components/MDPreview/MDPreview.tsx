@@ -37,7 +37,7 @@ const MDPreview: React.FC = () => {
         const commandText = (e.target as HTMLSpanElement).innerText;
         const command = commandText.replace(/CMD\((.+?)\)/gi, '$1');
         exec(`start cmd.exe /K "cd ${workdir}  & ${command}"`);
-    }, []);
+    }, [workdir]);
 
     useEffect(() => {
         const commands = document.querySelectorAll('.command');
@@ -59,7 +59,7 @@ const MDPreview: React.FC = () => {
                 link.removeEventListener('click', openLink);
             });
         }
-    }, [html, openLink]);
+    }, [html, openLink, executeCommand]);
 
     return <div className="md-preview"
         dangerouslySetInnerHTML={{ __html: html }}
