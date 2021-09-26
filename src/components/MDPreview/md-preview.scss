@@ -27,4 +27,38 @@
         font-weight: bold;
         text-decoration: none;
     }
+
+    .command {
+        background: var(--color-foreground);
+        color: var(--color-light);
+        font-weight: bold;
+        border-radius: var(--border-radius);
+        padding: 0 0.3rem;
+        font-family: var(--font-code);
+        cursor: pointer;
+    }
+
+    .bullet {
+        border-radius: var(--border-radius);
+        background: var(--md-cyan);
+        padding: 0 0.3rem;
+        font-weight: bold;
+        font-size: 0.8rem;
+
+        &.red {
+            background: var(--md-red);
+        }
+
+        &.cyan {
+            background: var(--md-cyan);
+        }
+
+        &.green {
+            background: var(--md-green);
+        }
+
+        &.yellow {
+            background: var(--md-yellow);
+        }
+    }
 }
