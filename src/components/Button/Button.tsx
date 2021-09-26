@@ -10,7 +10,7 @@ type Props = {
 }
 
 const Button: React.FC<Props> = ({ title, onClick, color = "accent", children, size = "large" }) => {
-    const fgColor = color === 'accent' ? 'light' : 'foreground';
+    const fgColor = color === 'background' ? 'foreground' : 'light';
     return <button
         className={`button ${size}`}
         style={{

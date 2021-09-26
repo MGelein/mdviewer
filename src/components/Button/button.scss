@@ -17,8 +17,13 @@
         margin-left: 0.5rem;
     }
 
+    .material-icons + .material-icons {
+        margin: 0;
+    }
+
     &.small {
         padding: 0.2rem;
+        margin: 0;
 
         .material-icons {
             font-size: 1.2rem;

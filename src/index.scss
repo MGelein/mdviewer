@@ -9,12 +9,6 @@
 }
 
 :root {
-  --color-foreground: #444;
-  --color-midtone: #888;
-  --color-background: #eee;
-  --color-light: #fff;
-  --color-accent: #ff7700;
-
   --font-code: "Courier New", Courier, monospace;
   --font-main: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 
@@ -26,6 +20,12 @@
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+
+  --color-foreground: #444;
+  --color-midtone: #888;
+  --color-background: #eee;
+  --color-light: #fff;
+  --color-accent: #ff7700;
 }
 
 ::-webkit-scrollbar {

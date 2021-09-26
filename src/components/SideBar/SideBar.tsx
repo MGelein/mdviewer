@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { canOpenFileType, getFileType } from "../../util/file";
 import { useAnimState, useApp, useKeyDown } from "../../util/hooks";
+import { basename } from "path";
 import Button from "../Button";
 import FileEntry from "../FileEntry";
 import Icon from "../Icon";
@@ -13,6 +14,7 @@ const SideBar: React.FC = () => {
     const [query, setQuery] = useState('');
     const { files } = useApp();
     const [filtered, setFiltered] = useState<string[]>([...files]);
+    const directoryName = workdir ? basename(workdir) : '';
 
     useEffect(() => {
         const regex = new RegExp(query.replace(/\s/g, '-'), 'gi')
@@ -43,7 +45,12 @@ const SideBar: React.FC = () => {
         </div>
         <div className="side-bar__explorer">
             <div className="side-bar__explorer-controls">
-
+                <span className="side-bar__explorer-workdir">
+                    <Icon name="home" />{directoryName}
+                </span>
+                <div>
+                    <Button size="small" color="foreground" title="Create file"><Icon name="note add" /></Button>
+                </div>
             </div>
             <div className="side-bar__explorer-list">
                 {filtered && filtered.map((file, index) => {
