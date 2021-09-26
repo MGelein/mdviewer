@@ -20,10 +20,10 @@ const ViewControls: React.FC = () => {
     const openPreview = () => changeMode('preview');
 
     const saveMarkdown = () => {
-        const markdownElement = document.querySelector('.md-edit__markdown');
+        const markdownElement = document.querySelector('.md-edit__markdown') as HTMLDivElement;
         if (!markdownElement || !focusFile || !workdir) return;
 
-        saveFile(focusFile, workdir, markdownElement.innerHTML);
+        saveFile(focusFile, workdir, markdownElement.innerText);
     }
 
     return <div className="view-controls">

@@ -37,7 +37,7 @@ const MDEdit: React.FC = () => {
 
     const onInput = () => {
         if (!markdown.current || !markup.current) return;
-        const markdownText = markdown.current.innerText;
+        const markdownText = markdown.current.innerHTML;
         const markdownLines = markdownText.split('\n');
         const markupText = markupMarkdownLines(markdownLines);
         markup.current.innerHTML = markupText;
