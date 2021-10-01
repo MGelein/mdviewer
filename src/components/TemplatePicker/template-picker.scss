@@ -1,9 +1,17 @@
 .template-picker {
+    background: var(--color-light);
+    width: clamp(40ch, 40%, 80ch);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+
     &__wrap {
         position: absolute;
         inset: 0;
         background: rgba(0, 0, 0, 0.6);
         z-index: 10;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         &.opening {
             animation: fadeIn 0.5s ease-in-out forwards;
@@ -11,6 +19,61 @@
 
         &.closing {
             animation: fadeOut 0.5s ease-in-out forwards;
+        }
+    }
+
+    &__header {
+        padding: 1rem 2rem;
+        background: var(--color-background);
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
+    }
+
+    &__form {
+        padding: 1rem 2rem 0 2rem;
+        display: flex;
+        flex-direction: column;
+
+        label {
+            position: relative;
+        }
+    }
+
+    &__template-select,
+    &__filename-input {
+        flex-grow: 4;
+        font-size: 1rem;
+        border-radius: var(--border-radius);
+        background: var(--color-background);
+        border: none;
+        outline: none;
+        box-shadow: 0 0 0.3rem rgba(0, 0, 0, 0.2);
+        padding: 0.5rem 1rem;
+        margin: 0.5rem 0;
+    }
+
+    &__filename-error {
+        position: absolute;
+        right: 1rem;
+        color: var(--color-accent);
+        font-weight: bold;
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 2rem 1rem 2rem;
+
+        > * {
+            flex-basis: 0;
+            flex-grow: 1;
+        }
+
+        > :nth-child(1) {
+            margin-right: 1rem;
+        }
+
+        > :nth-child(2) {
+            margin-left: 1rem;
         }
     }
 }

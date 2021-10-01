@@ -1,6 +1,7 @@
 import React from "react";
 import { canOpenFileType, getFileType } from "../../util/file";
 import { useApp } from "../../util/hooks";
+import { filenameToDisplay } from "../../util/string";
 import FileTypeBadge from "../FileTypeBadge";
 
 import './file-entry.scss';
@@ -24,7 +25,7 @@ const FileEntry: React.FC<Props> = ({ url }) => {
 
     return <div onClick={canOpen ? openFile : undefined} className={classes}>
         <FileTypeBadge type={type} />
-        {url}
+        {filenameToDisplay(url)}
     </div>
 }
 

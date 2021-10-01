@@ -1,2 +1,14 @@
 .input-label {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+
+    > * {
+        min-width: 0;
+        flex-basis: 0;
+    }
+
+    &__label {
+        flex-grow: 1;
+    }
 }

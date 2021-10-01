@@ -7,12 +7,14 @@ type Props = {
     onClick?: () => void;
     size?: 'small' | 'large';
     title?: string,
+    disabled?: boolean,
 }
 
-const Button: React.FC<Props> = ({ title, onClick, color = "accent", children, size = "large" }) => {
+const Button: React.FC<Props> = ({ title, onClick, color = "accent", children, size = "large", disabled = false }) => {
     const fgColor = color === 'background' ? 'foreground' : 'light';
+    const disabledClass = disabled ? 'disabled' : '';
     return <button
-        className={`button ${size}`}
+        className={`button ${size} ${disabledClass}`}
         style={{
             background: `var(--color-${color})`,
             color: `var(--color-${fgColor})`

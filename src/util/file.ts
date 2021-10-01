@@ -1,4 +1,4 @@
-import { promises, statSync } from "fs";
+import { promises, statSync, existsSync } from "fs";
 import { join } from "path";
 
 const { readdir, readFile, writeFile } = promises;
@@ -30,6 +30,13 @@ export function saveMarkdown(focusFile: string | null, workdir: string | null) {
     if (!markdownElement || !focusFile || !workdir) return;
 
     saveFile(focusFile, workdir, markdownElement.innerText);
+}
+
+export function fileExists(name: string, workdir: string | null) {
+    if (!workdir) return false;
+    const names = [name, name.toLowerCase().replace(/\s/g, '-')]
+    const extended = [...names.map(name => name + '.md'), ...names];
+    return !!extended.find(name => existsSync(join(workdir, name)));
 }
 
 export function getFileType(url: string, baseDir: string | null) {

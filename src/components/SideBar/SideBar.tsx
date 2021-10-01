@@ -60,7 +60,10 @@ const SideBar: React.FC = () => {
                 })}
             </div>
         </div>
-        {showNew && <TemplatePicker onClose={() => setShowNew(false)} />}
+        {showNew && <TemplatePicker
+            onClose={() => setShowNew(false)}
+            onSubmit={(name, template) => console.log({ name, template })}
+        />}
     </div >
 }
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { saveMarkdown } from "../../util/file";
 import { useApp } from "../../util/hooks";
+import { filenameToDisplay } from "../../util/string";
 import Icon from "../Icon";
 
 import './open-tab.scss';
@@ -37,7 +38,7 @@ const OpenTab: React.FC<Props> = ({ url }) => {
     }
 
     return (<div onClick={isFocusFile ? undefined : makeFocus} className={`open-tab ${isFocusFile ? 'focus' : ''}`}>
-        {url}
+        {filenameToDisplay(url)}
         <div className="open-tab__close" onClick={closeFile}><Icon name="close" /></div>
     </div>);
 }
