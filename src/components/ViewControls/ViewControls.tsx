@@ -1,5 +1,5 @@
 import React from "react";
-import { saveFile } from "../../util/file";
+import { saveMarkdown } from "../../util/file";
 import { useApp } from "../../util/hooks";
 import { EditMode } from "../../util/types";
 import Icon from "../Icon";
@@ -17,14 +17,10 @@ const ViewControls: React.FC = () => {
         setEditModes(newModes);
     }
     const openEdit = () => changeMode('edit');
-    const openPreview = () => changeMode('preview');
-
-    const saveMarkdown = () => {
-        const markdownElement = document.querySelector('.md-edit__markdown') as HTMLDivElement;
-        if (!markdownElement || !focusFile || !workdir) return;
-
-        saveFile(focusFile, workdir, markdownElement.innerText);
-    }
+    const openPreview = () => {
+        saveMarkdown(focusFile, workdir);
+        changeMode('preview');
+    };
 
     return <div className="view-controls">
         {editMode === 'edit' ?
@@ -32,7 +28,7 @@ const ViewControls: React.FC = () => {
                 <span onClick={openPreview} title="Preview" className="view-controls__control">
                     <Icon name="visibility" />
                 </span>
-                <span onClick={saveMarkdown} title="Save" className="view-controls__control">
+                <span onClick={() => saveMarkdown(focusFile, workdir)} title="Save" className="view-controls__control">
                     <Icon name="save" />
                 </span>
             </>

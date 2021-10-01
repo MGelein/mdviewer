@@ -21,6 +21,13 @@ export async function saveFile(url: string, baseDir: string, data: string) {
     return writeFile(join(baseDir, url), data, { encoding: 'utf-8' });
 }
 
+export function saveMarkdown(focusFile: string | null, workdir: string | null) {
+    const markdownElement = document.querySelector('.md-edit__markdown') as HTMLDivElement;
+    if (!markdownElement || !focusFile || !workdir) return;
+
+    saveFile(focusFile, workdir, markdownElement.innerText);
+}
+
 export function getFileType(url: string, baseDir: string | null) {
     const parts = url.split('.');
     const extension = parts[parts.length - 1];

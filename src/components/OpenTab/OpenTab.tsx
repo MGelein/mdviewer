@@ -1,4 +1,5 @@
 import React from "react";
+import { saveMarkdown } from "../../util/file";
 import { useApp } from "../../util/hooks";
 import Icon from "../Icon";
 
@@ -9,11 +10,13 @@ type Props = {
 }
 
 const OpenTab: React.FC<Props> = ({ url }) => {
-    const { focusFile, setFocusFile, setOpenFiles, editModes } = useApp();
+    const { focusFile, setFocusFile, setOpenFiles, editModes, workdir } = useApp();
     const isFocusFile = url === focusFile;
 
     const makeFocus = () => {
-        if (!isFocusFile) setFocusFile(url);
+        if (isFocusFile) return;
+        saveMarkdown(focusFile, workdir);
+        setFocusFile(url);
     }
 
     const closeFile = (e: React.MouseEvent) => {
