@@ -35,6 +35,7 @@ const SideBar: React.FC = () => {
             <label className="side-bar__search-label">
                 <Icon name="search" />
                 <input
+                    autoComplete="off"
                     id="searchField"
                     type="text"
                     value={query}

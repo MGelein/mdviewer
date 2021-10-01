@@ -18,7 +18,7 @@ const addRecentDir = (oldDirs: string[], newDir: string) => {
         oldDirs.splice(newDirIndex, 1);
         return [newDir, ...oldDirs];
     }
-    return [newDir, ...oldDirs];
+    return [newDir, ...oldDirs].slice(0, 5);
 }
 
 const ProjectPicker: React.FC = () => {
