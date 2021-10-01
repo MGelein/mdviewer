@@ -5,6 +5,7 @@ import { basename } from "path";
 import Button from "../Button";
 import FileEntry from "../FileEntry";
 import Icon from "../Icon";
+import TemplatePicker from "../TemplatePicker/";
 
 import './side-bar.scss';
 
@@ -12,6 +13,7 @@ const SideBar: React.FC = () => {
     const { workdir } = useApp();
     const [animState] = useAnimState();
     const [query, setQuery] = useState('');
+    const [showNew, setShowNew] = useState(false);
     const { files } = useApp();
     const [filtered, setFiltered] = useState<string[]>([...files]);
     const directoryName = workdir ? basename(workdir) : '';
@@ -49,7 +51,7 @@ const SideBar: React.FC = () => {
                     <Icon name="home" />{directoryName}
                 </span>
                 <div>
-                    <Button size="small" color="foreground" title="Create file"><Icon name="note add" /></Button>
+                    <Button onClick={() => setShowNew(true)} size="small" color="foreground" title="Create file"><Icon name="note add" /></Button>
                 </div>
             </div>
             <div className="side-bar__explorer-list">
@@ -58,7 +60,8 @@ const SideBar: React.FC = () => {
                 })}
             </div>
         </div>
-    </div>
+        {showNew && <TemplatePicker onClose={() => setShowNew(false)} />}
+    </div >
 }
 
 export default SideBar;

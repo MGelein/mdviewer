@@ -11,6 +11,10 @@ export async function listFiles(url: string) {
     return await readdir(url);
 }
 
+export async function loadTemplates(baseDir: string) {
+    return await listFiles(`${baseDir}/templates/`);
+}
+
 export async function loadFile(url: string, baseDir: string) {
     const path = join(baseDir, url);
     const data = await readFile(path, { encoding: 'utf8' });

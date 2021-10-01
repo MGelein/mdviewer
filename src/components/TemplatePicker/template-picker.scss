@@ -1,0 +1,16 @@
+.template-picker {
+    &__wrap {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 10;
+
+        &.opening {
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        &.closing {
+            animation: fadeOut 0.5s ease-in-out forwards;
+        }
+    }
+}
