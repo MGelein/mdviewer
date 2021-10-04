@@ -51,3 +51,8 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-foreground);
 }
+
+::selection {
+  color: var(--color-light);
+  background: var(--color-accent);
+}

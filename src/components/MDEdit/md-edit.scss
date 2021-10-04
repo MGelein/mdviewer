@@ -17,7 +17,7 @@
 
     &__markdown {
         color: rgba(0, 0, 0, 0);
-        caret-color: black;
+        caret-color: var(--color-foreground);
     }
 
     &__markup {
