@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { canOpenFileType, getFileType } from "../../util/file";
+import { canOpenFileType, createFileFromTemplate, getFileType } from "../../util/file";
 import { useAnimState, useApp, useKeyDown } from "../../util/hooks";
 import { basename } from "path";
 import Button from "../Button";
@@ -10,7 +10,7 @@ import TemplatePicker from "../TemplatePicker/";
 import './side-bar.scss';
 
 const SideBar: React.FC = () => {
-    const { workdir } = useApp();
+    const { workdir, setFocusFile } = useApp();
     const [animState] = useAnimState();
     const [query, setQuery] = useState('');
     const [showNew, setShowNew] = useState(false);
@@ -63,7 +63,10 @@ const SideBar: React.FC = () => {
         </div>
         {showNew && <TemplatePicker
             onClose={() => setShowNew(false)}
-            onSubmit={(name, template) => console.log({ name, template })}
+            onSubmit={async (name, template) => {
+                const filename = await createFileFromTemplate(name, template, workdir);
+                if (filename) setFocusFile(filename);
+            }}
         />}
     </div >
 }
