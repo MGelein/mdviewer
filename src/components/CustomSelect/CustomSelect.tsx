@@ -12,12 +12,12 @@ const CustomSelect: React.FC<Props> = ({ options, onChange, className }) => {
     const [selected, setSelected] = useState(options[0]);
     const [expanded, setExpanded] = useState(false);
 
-    const togglExpanded = () => setTimeout(() => setExpanded(previously => !previously), 100);
+    const toggleExpanded = () => setTimeout(() => setExpanded(previously => !previously), 100);
 
     useEffect(() => onChange(selected), [selected, onChange]);
     useEffect(() => setSelected(options[0]), [options]);
 
-    return (<div className={`custom-select ${className}`} onClick={togglExpanded}>
+    return (<div className={`custom-select ${className}`} onClick={toggleExpanded}>
         <div className="custom-select__selected">{selected}</div>
         {expanded &&
             <div className="custom-select__options">
@@ -25,7 +25,11 @@ const CustomSelect: React.FC<Props> = ({ options, onChange, className }) => {
                     return <div
                         key={option}
                         className="custom-select__option"
-                        onClick={(e) => setSelected(option)}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setSelected(option);
+                            setExpanded(false);
+                        }}
                     >
                         {option}
                     </div>

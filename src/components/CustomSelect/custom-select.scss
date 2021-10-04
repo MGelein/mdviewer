@@ -1,10 +1,5 @@
 .custom-select {
     position: relative;
-    transition: transform 0.2s ease-out;
-
-    &:active {
-        transform: scale(0.97);
-    }
 
     &__selected {
         background: var(--color-background);
@@ -18,7 +13,8 @@
         border-radius: var(--border-radius);
         width: 100%;
         box-shadow: 0 0.3rem 0.3rem rgba(0, 0, 0, 0.2);
-        z-index: 10;
+        z-index: 20;
+        pointer-events: all;
     }
 
     &__option {
