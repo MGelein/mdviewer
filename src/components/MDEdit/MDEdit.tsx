@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useApp } from "../../util/hooks";
 
 import './md-edit.scss';
@@ -32,6 +32,7 @@ function markupMarkdown(md: string) {
 
 const MDEdit: React.FC = () => {
     const { fileData } = useApp();
+    const [autocomplete, setAutocomplete] = useState(false);
     const markdown = useRef<HTMLDivElement>();
     const markup = useRef<HTMLDivElement>();
 
@@ -41,6 +42,11 @@ const MDEdit: React.FC = () => {
         const markdownLines = markdownText.split('\n');
         const markupText = markupMarkdownLines(markdownLines);
         markup.current.innerHTML = markupText;
+    }
+
+    const onKeyDown = ({ key }: React.KeyboardEvent) => {
+        if (key === '[') setAutocomplete(true);
+        else if (key === ']' || key === 'Escape') setAutocomplete(false);
     }
 
     useEffect(() => {
@@ -55,7 +61,7 @@ const MDEdit: React.FC = () => {
 
     return (<div className="md-edit">
         <div className="md-edit__markup"></div>
-        <div className="md-edit__markdown" contentEditable onInput={onInput}></div>
+        <div className="md-edit__markdown" contentEditable onKeyDown={onKeyDown} onInput={onInput}></div>
     </div>);
 }
 
