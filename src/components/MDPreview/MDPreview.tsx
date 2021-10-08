@@ -4,6 +4,7 @@ import { exec } from "child_process";
 import { useApp } from "../../util/hooks";
 
 import './md-preview.scss';
+import { fileExists } from "../../util/file";
 
 const insertExtendedSyntax = (html: string) => {
     html = html.replace(/\{(RP)}/gi, markup("bullet green"));
@@ -30,8 +31,8 @@ const MDPreview: React.FC = () => {
         const linkHref = link.getAttribute('href');
         const linkText = linkHref || link.innerText;
         const fileName = linkText.replace(/\s/g, '-').toLowerCase() + '.md';
-        setFocusFile(fileName);
-    }, [setFocusFile]);
+        if (fileExists(fileName, workdir)) setFocusFile(fileName);
+    }, [setFocusFile, workdir]);
 
     const executeCommand = useCallback((e: Event) => {
         const commandText = (e.target as HTMLSpanElement).innerText;
