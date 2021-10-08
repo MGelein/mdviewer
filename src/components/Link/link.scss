@@ -1,0 +1,42 @@
+.link {
+    display: block;
+    border: none;
+    background: transparent;
+    color: var(--color-accent);
+    font-size: 1rem;
+    position: relative;
+    transition: filter 0.2s ease-in-out;
+    cursor: pointer;
+    line-height: 1.5;
+
+    &::after {
+        content: "";
+        position: absolute;
+        height: 0.1em;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        transform: scaleX(0);
+        background: currentColor;
+        transition: transform 0.2s ease-in-out;
+        transform-origin: right;
+    }
+
+    &:hover {
+        filter: brightness(1.1);
+
+        &::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+    }
+
+    &:active {
+        filter: brightness(0.95);
+
+        &::after {
+            transition: transform 0.1s ease-out;
+            transform: scaleX(1) translateY(0.1em);
+        }
+    }
+}

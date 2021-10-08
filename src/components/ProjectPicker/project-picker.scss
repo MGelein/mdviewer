@@ -1,0 +1,44 @@
+.project-picker {
+    width: clamp(45ch, 70%, 80ch);
+    padding: 2rem;
+    background: var(--color-light);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+
+    &.opening {
+        animation: slideInRight 0.5s ease-in-out forwards;
+    }
+
+    &.closing {
+        animation: slideOutLeft 0.5s ease-in-out forwards;
+    }
+
+    &-wrap {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__header {
+        padding-left: 2rem;
+        border-left: 0.2rem solid var(--color-accent);
+        margin: 1rem 0;
+
+        &:nth-child(1) {
+            margin: 0 0 1rem 0;
+        }
+    }
+
+    &-buttons {
+        display: flex;
+
+        > * {
+            margin-left: 1rem;
+
+            &:first-of-type {
+                margin-left: 0;
+            }
+        }
+    }
+}

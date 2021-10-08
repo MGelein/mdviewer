@@ -1,0 +1,64 @@
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
+    box-shadow: 0 0 0.3rem rgba(161, 114, 114, 0.2);
+    position: relative;
+
+    .material-icons + * {
+        margin-left: 0.5rem;
+    }
+
+    .material-icons + .material-icons {
+        margin: 0;
+    }
+
+    &.small {
+        padding: 0.2rem;
+        margin: 0;
+        min-width: 2rem;
+        min-height: 2rem;
+
+        .material-icons {
+            font-size: 1.2rem;
+        }
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        border-radius: var(--border-radius);
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    &:hover {
+        transition: transform 0.1s ease-out, filter 0.1s ease-out;
+        transform: scale(1.02);
+        filter: brightness(1.1);
+
+        &::after {
+            opacity: 1;
+        }
+    }
+
+    &:active {
+        transition: transform 50ms ease-out, filter 50ms ease-out;
+        transform: scale(0.98);
+        filter: brightness(0.95);
+
+        &::after {
+            opacity: 0;
+        }
+    }
+}

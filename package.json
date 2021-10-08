@@ -1,20 +1,58 @@
 {
-  "name": "mdviewer",
-  "version": "1.0.0",
-  "description": "Viewing Markdown files for my D&D campaigns",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron ."
+  "name": "nw-test",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@types/node": "^16.9.2",
+    "@types/nw.js": "^0.13.14",
+    "@types/react": "^17.0.21",
+    "@types/react-dom": "^17.0.9",
+    "marked": "^3.0.4",
+    "material-icons": "^1.3.0",
+    "node-sass": "^6.0.1",
+    "nw-react-scripts": "4.0.4",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "typescript": "^4.4.3",
+    "web-vitals": "^2.1.0"
   },
-  "keywords": [
-    "dnd",
-    "markdown",
-    "md",
-    "viewer"
-  ],
-  "author": "Mees Gelein",
-  "license": "MIT",
+  "scripts": {
+    "start": "nw-react-scripts start",
+    "build": "nw-react-scripts build",
+    "eject": "nw-react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "nw-react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "main": "index.html",
+  "nwBuilder": {
+    "//": "https://github.com/nwjs-community/nw-builder",
+    "platforms": [
+      "osx64",
+      "win32",
+      "win64"
+    ],
+    "version": "latest",
+    "flavor": "normal",
+    "buildDir": "./build",
+    "cacheDir": "./cache",
+    "macIcns": "./src/logo.icns"
+  },
   "devDependencies": {
-    "electron": "^4.0.1"
+    "@types/marked": "^3.0.1"
   }
 }

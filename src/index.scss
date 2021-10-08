@@ -1,0 +1,72 @@
+@import "material-icons/iconfont/material-icons.css";
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --font-code: "Courier New", Courier, monospace;
+  --font-main: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+  --border-radius: 0.5rem;
+
+  --color-foreground: #444;
+  --color-midtone: #888;
+  --color-background: #eee;
+  --color-light: #fff;
+  --color-accent: #ff8923;
+
+  --md-red: #ff3c3c;
+  --md-green: #4cff3c;
+  --md-cyan: #3ce8ff;
+  --md-yellow: #ffeb3c;
+
+  .dark {
+    --color-foreground: #ddd;
+    --color-midtone: #777;
+    --color-background: #000;
+    --color-light: #111;
+
+    --md-red: #832222;
+    --md-green: #298121;
+    --md-cyan: #1b6b75;
+    --md-yellow: #978b1d;
+  }
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--color-foreground);
+  line-height: 1.4;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 0.6rem;
+  height: 0.6rem;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+  border-radius: var(--border-radius);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-midtone);
+  border-radius: var(--border-radius);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-foreground);
+}
+
+::selection {
+  color: var(--color-light);
+  background: var(--color-accent);
+}

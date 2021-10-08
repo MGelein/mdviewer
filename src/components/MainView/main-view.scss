@@ -1,0 +1,11 @@
+.main-view {
+    margin: 0.5rem 1rem 0.5rem 0.5rem;
+    min-width: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+
+    &.opening {
+        animation: slideInRight 0.5s ease-in-out forwards;
+    }
+}
