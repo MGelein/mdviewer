@@ -33,7 +33,7 @@ const SideBar: React.FC = () => {
     return <div className={`side-bar ${animState}`}>
         <div className="side-bar__search">
             <label className="side-bar__search-label">
-                <Icon name="search" />
+                <Icon name={query.length < 1 ? "search" : "close"} />
                 <input
                     autoComplete="off"
                     id="searchField"
@@ -42,6 +42,7 @@ const SideBar: React.FC = () => {
                     className="side-bar__search-field"
                     placeholder="Search..."
                     onChange={(e) => setQuery(e.target.value)}
+                    onClick={() => setQuery('')}
                 />
             </label>
             <Button title="Settings" size="small"><Icon name="settings" /></Button>
