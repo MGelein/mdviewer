@@ -8,12 +8,14 @@ import Icon from "../Icon";
 import TemplatePicker from "../TemplatePicker/";
 
 import './side-bar.scss';
+import Settings from "../Settings";
 
 const SideBar: React.FC = () => {
     const { workdir, setFocusFile } = useApp();
     const [animState] = useAnimState();
     const [query, setQuery] = useState('');
     const [showNew, setShowNew] = useState(false);
+    const [settings, setSettings] = useState(false);
     const { files } = useApp();
     const [filtered, setFiltered] = useState<string[]>([...files]);
     const directoryName = workdir ? basename(workdir) : '';
@@ -45,7 +47,9 @@ const SideBar: React.FC = () => {
                     onClick={() => setQuery('')}
                 />
             </label>
-            <Button title="Settings" size="small"><Icon name="settings" /></Button>
+            <Button title="Settings" size="small" onClick={() => setSettings(true)}>
+                <Icon name="settings" />
+            </Button>
         </div>
         <div className="side-bar__explorer">
             <div className="side-bar__explorer-controls">
@@ -69,6 +73,7 @@ const SideBar: React.FC = () => {
                 if (filename) setFocusFile(filename);
             }}
         />}
+        {settings && <Settings onClose={() => setSettings(false)} />}
     </div >
 }
 

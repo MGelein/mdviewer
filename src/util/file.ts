@@ -15,7 +15,7 @@ export async function listFiles(url: string) {
 export async function createTemplateFolder(baseDir: string) {
     await mkdir(join(baseDir, 'templates'));
     const templateNames = Object.keys(templates);
-    templateNames.map(name => {
+    templateNames.forEach(name => {
         writeFile(join(baseDir, 'templates', name + '.md'), templates[name], { encoding: 'utf8' });
     });
 }

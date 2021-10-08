@@ -14,13 +14,6 @@
 
   --border-radius: 0.5rem;
 
-  font-family: var(--font-main);
-  color: var(--color-foreground);
-  line-height: 1.4;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-
   --color-foreground: #444;
   --color-midtone: #888;
   --color-background: #eee;
@@ -31,6 +24,27 @@
   --md-green: #4cff3c;
   --md-cyan: #3ce8ff;
   --md-yellow: #ffeb3c;
+
+  .dark {
+    --color-foreground: #ddd;
+    --color-midtone: #777;
+    --color-background: #000;
+    --color-light: #111;
+
+    --md-red: #832222;
+    --md-green: #298121;
+    --md-cyan: #1b6b75;
+    --md-yellow: #978b1d;
+  }
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--color-foreground);
+  line-height: 1.4;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
 ::-webkit-scrollbar {

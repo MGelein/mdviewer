@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import AppContext from "../../util/appcontext";
 import { loadFile } from "../../util/file";
-import { useDirectory } from "../../util/hooks";
-import { EditMode } from "../../util/types";
+import { useDirectory, useStorage } from "../../util/hooks";
+import { EditMode, Theme } from "../../util/types";
 
 function uniqueFilter<T>(value: T, index: number, arr: T[]) {
     return arr.indexOf(value) === index;
+}
+
+
+function updateTheme(theme: Theme) {
+    document.body.classList.remove('dark', 'light');
+    document.body.classList.add(theme);
 }
 
 const AppContextProvider: React.FC = ({ children }) => {
@@ -16,8 +22,11 @@ const AppContextProvider: React.FC = ({ children }) => {
     const [focusFile, setFocusFile] = useState<string | null>(null);
     const [fileData, setFileData] = useState<string>('');
     const [editModes, setEditModes] = useState<Record<string, EditMode>>({});
+    const [theme, setTheme] = useStorage<Theme>('theme', 'light');
 
     useDirectory(workdir, setFiles);
+
+    useEffect(() => updateTheme(theme), [theme]);
 
     useEffect(() => {
         if (focusFile) {
@@ -46,6 +55,7 @@ const AppContextProvider: React.FC = ({ children }) => {
         focusFile, setFocusFile,
         fileData, setFileData,
         editModes, setEditModes,
+        theme, setTheme,
         files,
     }}>{children}</AppContext.Provider>);
 }

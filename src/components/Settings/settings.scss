@@ -1,0 +1,64 @@
+.settings {
+    background: var(--color-light);
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+    border-radius: var(--border-radius);
+    width: clamp(60ch, 50%, 80ch);
+    padding: 0.5rem;
+    overflow: hidden;
+
+    &-wrap {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &.opening {
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        &.closing {
+            animation: fadeOut 0.5s ease-in-out forwards;
+        }
+    }
+
+    &.opening {
+        animation: slideInUp 0.5s ease-out forwards;
+    }
+
+    &.closing {
+        animation: slideOutUp 0.5s ease-out forwards;
+    }
+
+    &__header {
+        background: var(--color-background);
+        margin: -0.5rem;
+        margin-bottom: 0.5rem;
+        padding: 1rem;
+    }
+
+    &__contents {
+        padding: 1rem;
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 2rem 1rem 2rem;
+
+        > * {
+            flex-basis: 0;
+            flex-grow: 1;
+        }
+
+        > :nth-child(1) {
+            margin-right: 1rem;
+        }
+
+        > :nth-child(2) {
+            margin-left: 1rem;
+        }
+    }
+}

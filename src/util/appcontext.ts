@@ -1,5 +1,5 @@
-import { createContext } from "react";
-import { EditMode } from "./types";
+import React, { createContext } from "react";
+import { EditMode, Theme } from "./types";
 
 type AppContextType = {
     workdir: string | null,
@@ -21,6 +21,9 @@ type AppContextType = {
 
     editModes: Record<string, EditMode>,
     setEditModes: React.Dispatch<React.SetStateAction<Record<string, EditMode>>>,
+
+    theme: Theme,
+    setTheme: React.Dispatch<React.SetStateAction<Theme>>,
 }
 
 const AppContext = createContext<AppContextType | null>(null);
