@@ -4,7 +4,7 @@ import Icon from "../Icon";
 import Link from "../Link";
 import DirectoryPicker from "../DirectoryPicker";
 import { useAnimState, useApp, useStorage } from "../../util/hooks";
-import { isDirEmpty } from "../../util/file";
+import { createTemplateFolder, hasTemplateFolder, isDirEmpty } from "../../util/file";
 
 import './project-picker.scss';
 
@@ -34,6 +34,7 @@ const ProjectPicker: React.FC = () => {
     const loadProject = (url: string) => {
         setAnimState('closing');
         loadDir.current = url;
+        if (!hasTemplateFolder(url)) createTemplateFolder(url);
     }
 
     const openProject = () => {

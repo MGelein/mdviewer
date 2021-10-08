@@ -1,7 +1,8 @@
 import { promises, statSync, existsSync } from "fs";
 import { join, dirname, sep } from "path";
+import templates from "./templates";
 
-const { readdir, readFile, writeFile, unlink } = promises;
+const { readdir, readFile, writeFile, unlink, mkdir } = promises;
 
 export async function isDirEmpty(url: string) {
     return (await listFiles(url)).length < 1;
@@ -9,6 +10,18 @@ export async function isDirEmpty(url: string) {
 
 export async function listFiles(url: string) {
     return await readdir(url);
+}
+
+export async function createTemplateFolder(baseDir: string) {
+    await mkdir(join(baseDir, 'templates'));
+    const templateNames = Object.keys(templates);
+    templateNames.map(name => {
+        writeFile(join(baseDir, 'templates', name + '.md'), templates[name], { encoding: 'utf8' });
+    });
+}
+
+export function hasTemplateFolder(baseDir: string) {
+    return fileExists('templates', baseDir);
 }
 
 export async function loadTemplates(baseDir: string) {
