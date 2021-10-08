@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
+import { replaceAutoComplete } from "../../util/caret";
 import { useApp } from "../../util/hooks";
+import Autocomplete from "../Autocomplete";
 
 import './md-edit.scss';
 
@@ -59,10 +61,20 @@ const MDEdit: React.FC = () => {
         onInput();
     }, [fileData]);
 
-    return (<div className="md-edit">
-        <div className="md-edit__markup"></div>
-        <div className="md-edit__markdown" contentEditable onKeyDown={onKeyDown} onInput={onInput}></div>
-    </div>);
+    return (<>
+        <div className="md-edit">
+            <div className="md-edit__markup"></div>
+            <div className="md-edit__markdown" onKeyDown={onKeyDown} contentEditable onInput={onInput}></div>
+        </div>
+        {autocomplete && <Autocomplete
+            onCancel={() => setAutocomplete(false)}
+            onSubmit={(value: string, query: string) => {
+                setAutocomplete(false);
+                replaceAutoComplete(value, query, "]()");
+                onInput();
+            }}
+        />}
+    </>);
 }
 
 export default MDEdit;

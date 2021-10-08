@@ -1,0 +1,19 @@
+.autocomplete {
+    position: fixed;
+    margin-top: 1rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: var(--border-radius);
+    background: var(--color-light);
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+    font-family: var(--font-code);
+    min-width: 20rem;
+
+    &__option {
+        display: block;
+
+        &.selected {
+            background: var(--color-accent);
+            color: var(--color-light);
+        }
+    }
+}
