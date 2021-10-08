@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MainView from './components/MainView';
 import SideBar from './components/SideBar';
 import ProjectPicker from './components/ProjectPicker';
@@ -9,6 +9,7 @@ import ErrorDialog from './components/ErrorDialog';
 
 const App: React.FC = () => {
   const { workdir, error } = useApp();
+  useEffect(() => nw.Window.get().maximize(), []);
 
   return <div className="app">
     {workdir ?
