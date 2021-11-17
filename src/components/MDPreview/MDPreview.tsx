@@ -54,9 +54,9 @@ const MDPreview: React.FC = () => {
         const images = document.querySelectorAll<HTMLImageElement>('img');
         images.forEach(image => {
             if (workdir && image.src.includes(workdir)) return;
-            const imageSrc = image.src.replace(image.baseURI, '');
-            const path = createImagePath(imageSrc, workdir ?? '');
+            const path = createImagePath(image.src, workdir ?? '');
             image.src = `file://${path}`;
+            image.alt = image.src;
         });
 
         return () => {

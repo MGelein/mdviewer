@@ -1,5 +1,5 @@
 import { promises, statSync, existsSync } from "fs";
-import { join, dirname, sep } from "path";
+import { join, dirname, sep, basename } from "path";
 import templates from "./templates";
 
 const { readdir, readFile, writeFile, unlink, mkdir } = promises;
@@ -88,7 +88,7 @@ export function getFileType(url: string, baseDir: string | null) {
 }
 
 export function createImagePath(imageName: string, workdir: string) {
-    return join(workdir, imageName);
+    return join(workdir, basename(imageName));
 }
 
 export function canOpenFileType(type: string) {
