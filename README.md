@@ -9,9 +9,9 @@ MDViewer is a very simple application at its heart. It is a wiki-like applicatio
 
 ## How to build
 This is mostly here as a reminder for myself:
-1. Zip all files in this folder, rename to `package.nw`
-2. Put in the folder that contains the `nw` executable for the system that we're building for.
-3. Profit.
-4. Optionally remove some files that are not strictly necessary for the build (This seems slight unstable):
+1. Run `npn run build`, you can abort as soon as the production build is made.
+2. Copy all files from the build folder into a normal NW js build folder that contains the `nw` executable.
+5. Profit.
+6. Optionally remove some files that are not strictly necessary for the build (This seems slight unstable):
  1. ffmpeg
  2. All locales except for one that it needs to boot
