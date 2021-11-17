@@ -3,9 +3,9 @@ import MainView from './components/MainView';
 import SideBar from './components/SideBar';
 import ProjectPicker from './components/ProjectPicker';
 import { useApp } from './util/hooks';
+import ErrorDialog from './components/ErrorDialog';
 
 import './app.scss';
-import ErrorDialog from './components/ErrorDialog';
 
 const App: React.FC = () => {
   const { workdir, error } = useApp();
