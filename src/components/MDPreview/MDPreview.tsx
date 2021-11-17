@@ -56,7 +56,11 @@ const MDPreview: React.FC = () => {
             if (workdir && image.src.includes(workdir)) return;
             const path = createImagePath(image.src, workdir ?? '');
             image.src = `file://${path}`;
-            image.alt = image.src;
+
+            if (image.alt.length > 0) {
+                const classes = image.alt.split(' ');
+                classes.forEach(c => image.classList.add(c));
+            }
         });
 
         return () => {
