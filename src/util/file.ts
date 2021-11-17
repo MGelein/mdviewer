@@ -87,6 +87,10 @@ export function getFileType(url: string, baseDir: string | null) {
     return 'file';
 }
 
+export function createImagePath(imageName: string, workdir: string) {
+    return join(workdir, imageName);
+}
+
 export function canOpenFileType(type: string) {
     if (type === 'md') return true;
     return false;

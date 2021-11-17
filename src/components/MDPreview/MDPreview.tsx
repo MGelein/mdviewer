@@ -2,9 +2,9 @@ import React, { useCallback, useEffect, useMemo } from "react";
 import marked from 'marked';
 import { exec } from "child_process";
 import { useApp } from "../../util/hooks";
+import { createImagePath, fileExists } from "../../util/file";
 
 import './md-preview.scss';
-import { fileExists } from "../../util/file";
 
 const insertExtendedSyntax = (html: string) => {
     html = html.replace(/\{(RP)}/gi, markup("bullet green"));
@@ -51,6 +51,14 @@ const MDPreview: React.FC = () => {
             link.addEventListener('click', openLink);
         });
 
+        const images = document.querySelectorAll<HTMLImageElement>('img');
+        images.forEach(image => {
+            if (workdir && image.src.includes(workdir)) return;
+            const imageSrc = image.src.replace(image.baseURI, '');
+            const path = createImagePath(imageSrc, workdir ?? '');
+            image.src = `file://${path}`;
+        });
+
         return () => {
             commands.forEach((command) => {
                 command.removeEventListener('click', executeCommand);
@@ -60,7 +68,7 @@ const MDPreview: React.FC = () => {
                 link.removeEventListener('click', openLink);
             });
         }
-    }, [html, openLink, executeCommand]);
+    }, [html, openLink, executeCommand, workdir]);
 
     return <div className="md-preview"
         dangerouslySetInnerHTML={{ __html: html }}
