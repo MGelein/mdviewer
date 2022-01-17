@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo } from "react";
-import marked from 'marked';
+import { marked } from 'marked';
 import { exec } from "child_process";
 import { useApp } from "../../util/hooks";
 import { createImagePath, fileExists } from "../../util/file";
@@ -22,7 +22,7 @@ function markup(className: string) {
 
 const MDPreview: React.FC = () => {
     const { fileData, workdir, setFocusFile } = useApp();
-    const markup = useMemo(() => marked(fileData), [fileData]);
+    const markup = useMemo(() => marked.parse(fileData), [fileData]);
     const html = useMemo(() => insertExtendedSyntax(markup), [markup]);
 
     const openLink = useCallback((e: Event) => {
