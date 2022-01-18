@@ -10,6 +10,18 @@ import TemplatePicker from "../TemplatePicker/";
 import './side-bar.scss';
 import Settings from "../Settings";
 
+function getNumberInName(name: string) {
+    return parseInt(name.split('.')[0], 10);
+}
+
+function compareFilenames(nameA: string, nameB: string) {
+    const numberA = getNumberInName(nameA);
+    if (isNaN(numberA)) return nameA.localeCompare(nameB);
+    const numberB = getNumberInName(nameB);
+    if (isNaN(numberB)) return nameA.localeCompare(nameB);
+    return numberA - numberB;
+}
+
 const SideBar: React.FC = () => {
     const { workdir, setFocusFile } = useApp();
     const [animState] = useAnimState();
@@ -24,7 +36,7 @@ const SideBar: React.FC = () => {
         const regex = new RegExp(query.replace(/\s/g, '-'), 'gi')
         setFiltered([...files.filter(file => {
             return file.match(regex) && canOpenFileType(getFileType(file, workdir));
-        })])
+        })].sort(compareFilenames));
     }, [setFiltered, files, query, workdir]);
 
     useKeyDown('Escape', () => {
