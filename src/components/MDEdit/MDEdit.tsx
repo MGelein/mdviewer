@@ -5,23 +5,12 @@ import Autocomplete from "../Autocomplete";
 
 import './md-edit.scss';
 
-const lineCache: Record<string, string> = {};
-
 function markup(className: string) {
     return `<span class="${className}">$1</span>`;
 }
 
-function markupMarkdownLines(mdLines: string[]) {
-    const outputLines = mdLines.map(line => {
-        if (line in lineCache) return lineCache[line];
-        lineCache[line] = markupMarkdown(line);
-        return lineCache[line];
-    });
-    return outputLines.join('\n');
-}
-
 function markupMarkdown(md: string) {
-    md = md.replace(/(#+.+)/g, markup("header"));
+    md = md.replace(/(#+[^<\n]+)/g, markup("header"));
     md = md.replace(/([_*][_*][^_*]+?[_*][_*])/g, markup("bold"));
     md = md.replace(/([^_*][_*][^_*]+?[_*][^_*])/g, markup("italics"));
     md = md.replace(/(`[^`]+?`)/g, markup("code-inline"));
@@ -41,8 +30,8 @@ const MDEdit: React.FC = () => {
     const onInput = () => {
         if (!markdown.current || !markup.current) return;
         const markdownText = markdown.current.innerHTML;
-        const markdownLines = markdownText.split('\n');
-        const markupText = markupMarkdownLines(markdownLines);
+        const noLinebreaks = markdownText.replace('<div><br></div>', '\n');
+        const markupText = markupMarkdown(noLinebreaks);
         markup.current.innerHTML = markupText;
     }
 
@@ -52,8 +41,6 @@ const MDEdit: React.FC = () => {
     }
 
     useEffect(() => {
-        Object.keys(lineCache).forEach(line => delete lineCache[line]);
-
         markdown.current = document.querySelector('.md-edit__markdown') as HTMLDivElement;
         markup.current = document.querySelector('.md-edit__markup') as HTMLDivElement;
 
