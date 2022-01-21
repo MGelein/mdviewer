@@ -1,6 +1,7 @@
 import React, { CSSProperties, useEffect, useState, useMemo, useCallback } from "react";
 import getCaretRect from "../../util/caret";
 import { useApp } from "../../util/hooks";
+import { filenameToDisplay } from "../../util/string";
 
 import './autocomplete.scss';
 
@@ -34,7 +35,8 @@ const Autocomplete: React.FC<Props> = ({ onCancel, onSubmit }) => {
     }, [setCoord]);
 
     const submit = useCallback(() => {
-        onSubmit(filtered[selected], query)
+        const filename = filtered[selected];
+        onSubmit(filenameToDisplay(filename), query)
     }, [onSubmit, filtered, selected, query]);
 
     useEffect(() => {
