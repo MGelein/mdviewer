@@ -21,6 +21,13 @@ function markupMarkdown(md: string) {
     return md;
 }
 
+function removeDivs(md: string) {
+    md = md.replace(/<div>/g, '\n');
+    md = md.replace(/<br>/g, '');
+    md = md.replace(/<\/div>/g, '');
+    return md;
+}
+
 const MDEdit: React.FC = () => {
     const { fileData } = useApp();
     const [autocomplete, setAutocomplete] = useState(false);
@@ -30,7 +37,7 @@ const MDEdit: React.FC = () => {
     const onInput = () => {
         if (!markdown.current || !markup.current) return;
         const markdownText = markdown.current.innerHTML;
-        const noLinebreaks = markdownText.replace('<div><br></div>', '\n');
+        const noLinebreaks = removeDivs(markdownText);
         const markupText = markupMarkdown(noLinebreaks);
         markup.current.innerHTML = markupText;
     }
