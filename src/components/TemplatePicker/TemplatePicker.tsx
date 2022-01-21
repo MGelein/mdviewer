@@ -76,8 +76,12 @@ const TemplatePicker: React.FC<Props> = ({ onClose, onSubmit }) => {
                 </InputLabel>
             </form>
             <div className="template-picker__buttons">
-                <Button disabled={!!nameError} onClick={() => submit()}><Icon name="Add" /><span>Create New File</span></Button>
-                <Button onClick={() => setAnimState('closing')} color='foreground'><Icon name="Close" /><span>Cancel</span></Button>
+                <Button disabled={!!nameError} onClick={() => submit()}><Icon name="Add" />
+                    <span>Create New File</span>
+                </Button>
+                <Button onClick={() => setAnimState('closing')} color='foreground'>
+                    <Icon name="Close" /><span>Cancel</span>
+                </Button>
             </div>
         </div>
     </div>);

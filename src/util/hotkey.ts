@@ -8,14 +8,23 @@ export type Hotkey = {
 
 let activeHotkeys: Hotkey[] = [];
 
+function isModifierKey(key: string) {
+    return key === 'shift' || key === 'alt' || key === 'ctrl';
+}
+
 function parseHotkeyDescription(description: string, callback: () => void) {
-    const keys = description.toLowerCase().replace(/[^a-z0-9+]/g, '').split('+');
+    const keys = description.toLowerCase().split('+');
     const shift = keys.includes('shift');
     const control = keys.includes('ctrl');
     const alt = keys.includes('alt');
-    const character = keys.find(key => key.match(/[a-z]/g) && key.length === 1);
+    const character = keys.find(key => !isModifierKey(key));
     if (!character) return null;
     return { character, shift, alt, control, callback };
+}
+
+export function getHotkeyDescription(hotkeyDescription?: string) {
+    if (!hotkeyDescription) return "";
+    return ` (${hotkeyDescription.replace(/[+]/g, ' + ').toUpperCase()})`;
 }
 
 export function registerHotkey(description: string, callback: () => void) {
@@ -24,7 +33,6 @@ export function registerHotkey(description: string, callback: () => void) {
         const hotkeyIndex = activeHotkeys.indexOf(hotkey);
         if (hotkeyIndex === -1) activeHotkeys.push(hotkey);
     }
-    console.log(activeHotkeys);
     return hotkey;
 }
 

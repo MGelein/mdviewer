@@ -68,8 +68,8 @@ const ProjectPicker: React.FC = () => {
                 an existing one!
             </p>
             <div className="project-picker-buttons">
-                <Button onClick={newProject}><Icon name="Add" /><span>New Project</span></Button>
-                <Button onClick={openProject}><Icon name="Folder Open" />
+                <Button onClick={newProject} hotkey="ctrl+n"><Icon name="Add" /><span>New Project</span></Button>
+                <Button onClick={openProject} hotkey="ctrl+o"><Icon name="Folder Open" />
                     <span>Open Project</span>
                 </Button>
                 <DirectoryPicker id="directoryPicker" onChange={pickFolder} />

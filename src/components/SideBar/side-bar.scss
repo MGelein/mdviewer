@@ -23,6 +23,12 @@
             flex-grow: 1;
         }
 
+        &-icon {
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+        }
+
         &-field {
             outline: none;
             border: none;

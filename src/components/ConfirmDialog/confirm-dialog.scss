@@ -1,7 +1,7 @@
 .confirm-dialog {
     padding: 2rem;
     border-radius: var(--border-radius);
-    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow);
     background: var(--color-light);
     display: flex;
     flex-direction: column;

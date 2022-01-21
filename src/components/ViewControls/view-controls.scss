@@ -1,26 +1,14 @@
 .view-controls {
     position: absolute;
     display: flex;
-    flex-direction: column;
-    right: 0;
-    width: 2rem;
+    top: 1rem;
+    right: 1rem;
     align-items: center;
+    gap: 0.4rem;
+    z-index: 1;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
 
-    &__control {
-        color: var(--color-accent);
-        cursor: pointer;
-        transition: filter 0.2s ease-out, transform 0.2s ease-out;
-        user-select: none;
-
-        &:hover {
-            filter: brightness(1.2);
-            transform: scale(1.1);
-            box-shadow: 0 0 0.3rem rgba(0, 0, 0, 0.2);
-        }
-
-        &:active {
-            filter: brightness(0.9);
-            transform: scale(0.9);
-        }
-    }
+    background: white;
+    box-shadow: var(--shadow);
 }

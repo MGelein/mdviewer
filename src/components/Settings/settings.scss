@@ -1,6 +1,6 @@
 .settings {
     background: var(--color-light);
-    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow);
     border-radius: var(--border-radius);
     width: clamp(60ch, 50%, 80ch);
     padding: 0.5rem;

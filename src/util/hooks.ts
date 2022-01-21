@@ -17,11 +17,11 @@ export function useActiveHotkeys() {
     }, []);
 }
 
-export function useHotkey(hotkeyDescription: string, callback: () => void) {
+export function useHotkey(hotkeyDescription: string | undefined, callback?: () => void) {
     useEffect(() => {
+        if (!hotkeyDescription || !callback) return;
         const hotkey = registerHotkey(hotkeyDescription, callback);
         return () => {
-            console.log("destructor5");
             if (hotkey) unregisterHotkey(hotkey);
         }
     }, [callback, hotkeyDescription]);
@@ -70,12 +70,4 @@ export function useDirectory(url: string | null, onChange: (filelist: string[]) 
         if (!url) return;
         listFiles(url).then((files) => onChange(files));
     }, [url, eventDescription, onChange]);
-}
-
-export function useKeyDown(key: string, onKeyDown: () => void) {
-    useEffect(() => {
-        const keydown = (e: KeyboardEvent) => e.key === key && onKeyDown();
-        document.addEventListener('keydown', keydown);
-        return () => document.removeEventListener('keydown', keydown);
-    }, [key, onKeyDown]);
 }

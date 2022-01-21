@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { canOpenFileType, createFileFromTemplate, getFileType } from "../../util/file";
-import { useAnimState, useApp, useKeyDown } from "../../util/hooks";
+import { useAnimState, useApp, useHotkey } from "../../util/hooks";
 import { basename } from "path";
 import Button from "../Button";
 import FileEntry from "../FileEntry";
 import Icon from "../Icon";
 import TemplatePicker from "../TemplatePicker/";
+import Settings from "../Settings";
 
 import './side-bar.scss';
-import Settings from "../Settings";
 
 function getNumberInName(name: string) {
     return parseInt(name.split('.')[0], 10);
@@ -39,15 +39,22 @@ const SideBar: React.FC = () => {
         })].sort(compareFilenames));
     }, [setFiltered, files, query, workdir]);
 
-    useKeyDown('Escape', () => {
+    useHotkey('escape', () => {
         setQuery('');
         document.getElementById('searchField')?.blur();
+    });
+
+    useHotkey('ctrl+f', () => {
+        setQuery('');
+        document.getElementById('searchField')?.focus();
     });
 
     return <div className={`side-bar ${animState}`}>
         <div className="side-bar__search">
             <label className="side-bar__search-label">
-                <Icon name={query.length < 1 ? "search" : "close"} />
+                <span className="side-bar__search-icon">
+                    <Icon name={query.length < 1 ? "search" : "close"} />
+                </span>
                 <input
                     autoComplete="off"
                     id="searchField"
@@ -59,7 +66,7 @@ const SideBar: React.FC = () => {
                     onClick={() => setQuery('')}
                 />
             </label>
-            <Button title="Settings" size="small" onClick={() => setSettings(true)}>
+            <Button title="Settings" size="small" onClick={() => setSettings(true)} hotkey="ctrl+,">
                 <Icon name="settings" />
             </Button>
         </div>
@@ -69,7 +76,9 @@ const SideBar: React.FC = () => {
                     <Icon name="home" />{directoryName}
                 </span>
                 <div>
-                    <Button onClick={() => setShowNew(true)} size="small" color="foreground" title="Create file"><Icon name="note add" /></Button>
+                    <Button onClick={() => setShowNew(true)} size="small" color="foreground" title="Create file" hotkey="ctrl+n" >
+                        <Icon name="note add" />
+                    </Button>
                 </div>
             </div>
             <div className="side-bar__explorer-list">

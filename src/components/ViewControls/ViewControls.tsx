@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { removeFile, saveMarkdown } from "../../util/file";
 import { useApp } from "../../util/hooks";
 import { EditMode } from "../../util/types";
+import Button from "../Button";
 import ConfirmDialog from "../ConfirmDialog";
 import Icon from "../Icon";
 
@@ -51,21 +52,21 @@ const ViewControls: React.FC = () => {
             question="Do you really want to remove this file?" />}
         {editMode === 'edit' ?
             <>
-                <span onClick={openPreview} title="Preview" className="view-controls__control">
+                <Button onClick={openPreview} title="Preview" size="small" color="background" hotkey="ctrl+p">
                     <Icon name="visibility" />
-                </span>
-                <span onClick={() => saveMarkdown(focusFile, workdir)} title="Save" className="view-controls__control">
+                </Button>
+                <Button onClick={() => saveMarkdown(focusFile, workdir)} title="Save" size="small" color="background" hotkey="ctrl+s">
                     <Icon name="save" />
-                </span>
+                </Button>
             </>
             :
             <>
-                <span onClick={openEdit} title="Edit" className="view-controls__control">
+                <Button onClick={openEdit} title="Edit" size="small" color="background" hotkey="ctrl+e">
                     <Icon name="edit" />
-                </span>
-                <span title="Remove" onClick={() => setDeleting(true)} className="view-controls__control">
+                </Button>
+                <Button title="Remove" onClick={() => setDeleting(true)} size="small" color="background" hotkey="ctrl+shift+d">
                     <Icon name="delete" />
-                </span>
+                </Button>
             </>
         }
     </div>
