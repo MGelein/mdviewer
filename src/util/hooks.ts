@@ -4,6 +4,28 @@ import { getLocalStorage, setLocalStorage } from "./storage";
 import { AnimState } from "./types";
 import { watch } from "fs";
 import { listFiles } from "./file";
+import { findHotkey, registerHotkey, unregisterHotkey } from "./hotkey";
+
+export function useActiveHotkeys() {
+    useEffect(() => {
+        const listener = (e: KeyboardEvent) => {
+            const hotkey = findHotkey(e);
+            if (hotkey) hotkey.callback();
+        }
+        document.addEventListener('keydown', listener);
+        return () => document.removeEventListener('keydown', listener);
+    }, []);
+}
+
+export function useHotkey(hotkeyDescription: string, callback: () => void) {
+    useEffect(() => {
+        const hotkey = registerHotkey(hotkeyDescription, callback);
+        return () => {
+            console.log("destructor5");
+            if (hotkey) unregisterHotkey(hotkey);
+        }
+    }, [callback, hotkeyDescription]);
+}
 
 export function useApp() {
     const context = useContext(AppContext);
