@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Icon from "../Icon";
 
 import './custom-select.scss';
 
@@ -11,6 +12,8 @@ type Props = {
 const CustomSelect: React.FC<Props> = ({ options, onChange, className }) => {
     const [selected, setSelected] = useState(options[0]);
     const [expanded, setExpanded] = useState(false);
+    const selectedClass = ['custom-select__selected'];
+    if (expanded) selectedClass.push('expanded');
 
     const toggleExpanded = () => setTimeout(() => setExpanded(previously => !previously), 100);
 
@@ -18,7 +21,10 @@ const CustomSelect: React.FC<Props> = ({ options, onChange, className }) => {
     useEffect(() => setSelected(options[0]), [options]);
 
     return (<div className={`custom-select ${className}`} onClick={toggleExpanded}>
-        <div className="custom-select__selected">{selected}</div>
+        <div className={selectedClass.join(' ')}>
+            {selected}
+            <Icon name="Expand More" />
+        </div>
         {expanded &&
             <div className="custom-select__options">
                 {options.filter(option => option !== selected).map(option => {
