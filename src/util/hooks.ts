@@ -1,10 +1,47 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import AppContext from "./appcontext";
 import { getLocalStorage, setLocalStorage } from "./storage";
 import { AnimState } from "./types";
 import { watch } from "fs";
-import { listFiles } from "./file";
+import { listFiles, saveMarkdown } from "./file";
 import { findHotkey, registerHotkey, unregisterHotkey } from "./hotkey";
+
+export function useNav() {
+    const { openFiles, focusFile, workdir, setFocusFile, setOpenFiles, editModes } = useApp();
+
+    const setFocusTab = useCallback((url: string) => {
+        if (url === focusFile) return;
+        saveMarkdown(focusFile, workdir);
+        setFocusFile(url);
+    }, [focusFile, workdir, setFocusFile]);
+
+    const changeTab = useCallback((direction: 1 | -1) => {
+        if (!focusFile || openFiles.length <= 1) return;
+        const tabIndex = openFiles.indexOf(focusFile);
+        saveMarkdown(focusFile, workdir);
+        const nextIndex = (tabIndex + direction) + openFiles.length;
+        const nextFile = openFiles[nextIndex % openFiles.length];
+        setFocusFile(nextFile);
+    }, [focusFile, openFiles, workdir, setFocusFile]);
+
+    const closeTab = useCallback((url) => {
+        setOpenFiles(files => {
+            const currentIndex = files.indexOf(url);
+            if (url === focusFile) {
+                const newFocusFile = files[currentIndex + 1 < files.length ? currentIndex + 1 : currentIndex - 1];
+                setFocusFile(newFocusFile);
+            }
+
+            const newFiles = files.filter(file => file !== url);
+            delete editModes[url];
+            return newFiles;
+        });
+    }, [setFocusFile, setOpenFiles, editModes, focusFile]);
+
+    const closeFocusTab = useCallback(() => closeTab(focusFile), [focusFile, closeTab]);
+
+    return { changeTab, closeTab, closeFocusTab, setFocusTab, openFiles, focusFile };
+}
 
 export function useActiveHotkeys() {
     useEffect(() => {
