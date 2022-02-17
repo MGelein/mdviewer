@@ -3,7 +3,7 @@
     padding: 2rem;
     background: var(--color-light);
     border-radius: var(--border-radius);
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-soft);
 
     &.opening {
         animation: slideInRight 0.5s ease-in-out forwards;

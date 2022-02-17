@@ -3,7 +3,7 @@
     padding: 1rem;
     flex-grow: 1;
     margin-bottom: 0.5rem;
-    box-shadow: 0 0 0.3rem rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-medium);
     border-radius: var(--border-radius);
     position: relative;
 

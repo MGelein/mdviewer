@@ -7,7 +7,7 @@
     border: none;
     cursor: pointer;
     opacity: 0.8;
-    box-shadow: 0 0 0.1rem rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-hard);
     font-size: 0.9rem;
     position: relative;
     display: flex;
@@ -26,7 +26,7 @@
         position: absolute;
         left: 0;
         right: 0;
-        box-shadow: 0 0 0.3rem rgba(0, 0, 0, 0.2);
+        box-shadow: var(--shadow-medium);
         border-radius: var(--border-radius) var(--border-radius) 0 0;
         z-index: 2;
         opacity: 0;

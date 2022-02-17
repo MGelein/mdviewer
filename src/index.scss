@@ -14,18 +14,21 @@
 
   --border-radius: 0.5rem;
 
+  --color-shadow: rgba(0, 0, 0, 0.2);
   --color-foreground: #444;
   --color-midtone: #888;
   --color-background: #eee;
   --color-light: #fff;
   --color-accent: #ff8923;
 
-  --shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
-
   --md-red: #ff3c3c;
   --md-green: #4cff3c;
   --md-cyan: #3ce8ff;
   --md-yellow: #ffeb3c;
+
+  --shadow-soft: 0 0.4rem 1rem var(--color-shadow);
+  --shadow-medium: 0 0.2rem 0.5rem var(--color-shadow);
+  --shadow-hard: 0 0.1rem 0.2rem var(--color-shadow);
 
   .dark {
     --color-foreground: #ddd;

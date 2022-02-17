@@ -10,7 +10,7 @@
     margin-top: 1rem;
     cursor: pointer;
     transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
-    box-shadow: 0 0 0.3rem rgba(161, 114, 114, 0.2);
+    box-shadow: var(--shadow-hard);
     position: relative;
 
     .material-icons + * {
@@ -36,7 +36,7 @@
         content: "";
         position: absolute;
         inset: 0;
-        box-shadow: var(--shadow);
+        box-shadow: var(--shadow-medium);
         opacity: 0;
         border-radius: var(--border-radius);
         transition: opacity 0.2s ease-in-out;

@@ -2,7 +2,7 @@
     background: var(--color-light);
     width: clamp(60ch, 50%, 80ch);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-soft);
 
     &__wrap {
         position: absolute;
@@ -46,7 +46,7 @@
         background: var(--color-background);
         border: none;
         outline: none;
-        box-shadow: 0 0 0.3rem rgba(0, 0, 0, 0.2);
+        box-shadow: var(--shadow-medium);
         padding: 0.5rem 1rem;
         margin: 0.5rem 0;
         color: var(--color-foreground);
